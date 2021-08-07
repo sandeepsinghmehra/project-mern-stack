@@ -1,0 +1,53 @@
+
+h2 {
+    font-weight: 600;
+    font-size: 1.8rem;
+    color: $black;
+}
+.header_card {
+    display: flex;
+    padding: 10px;
+    &_avatar {
+        width: 4rem;
+        height: 4rem;
+        background: $green;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: $white;
+        font-size: 18px;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+    &_user{
+        display: flex;
+        flex-direction: column;
+        padding-left: 1rem;
+        &_info {
+        color: $black;
+        display: flex;
+        flex-direction: column;
+        span:nth-child(1){
+            font-size: 1.4rem;
+            text-transform: capitalize;
+            font-weight: 400;
+            }
+        span:nth-child(2){
+            font-size: 1.3rem;
+            font-weight: 400;
+            }
+        }
+        &_author{
+            span {
+                display: block;
+                font-size: 2rem;
+                color: $black;
+                font-weight: 500;
+            }
+        }
+        
+    }
+}
+
+

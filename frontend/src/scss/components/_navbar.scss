@@ -1,0 +1,103 @@
+@include responsive(mobile){
+    width: 100%;
+    .navbar{ 
+        &_right{
+            display: flex;
+            & li {
+                list-style-type: none;
+               
+                span {
+                    font-size: 1.4rem;
+                    display: inline-block;
+                    padding: 0 1.5rem;
+                    color: $black;
+                    cursor: pointer;
+                }
+                & a {
+                    text-decoration: none;
+                    font-size: 1.4rem;
+                    color: $black;
+                    display: block;
+                    padding: 0 1.5rem;
+                    outline: none;
+                }
+            }
+            &_mobile {
+                display: none;
+            }
+    
+        }
+    }
+    .navbar_bottom {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 8rem; 
+        opacity: 2;
+        z-index: 2;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        background: $silverGrey;
+        span {
+            font-size: 4rem;
+            display: inline-block;
+            padding: 0 1.5rem;
+            color: $black;
+            cursor: pointer;
+        }
+        & a {
+            text-decoration: none;
+            font-size: 4rem;
+            color: $black;
+            display: block;
+            padding: 0 1.5rem;
+            outline: none;
+        }
+    }
+}
+.navbar{
+    position: fixed;
+    top:0;
+    left:0;
+    opacity: 2;
+    z-index: 2;
+    width: 100%;
+    height: 8rem;
+    background: $silverGrey;
+    box-shadow: 0 .3rem 3rem rgba(0,0,0,.1);
+    &_row{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 8rem;
+    }
+    &_left h2{
+        color: $black;
+    }
+    &_right{
+        display: flex;
+        & li {
+            list-style-type: none;
+            span {
+                font-size: 1.4rem;
+                display: inline-block;
+                padding: 0 1.5rem;
+                color: $black;
+                cursor: pointer;
+            }
+            & a {
+                text-decoration: none;
+                font-size: 1.4rem;
+                color: $black;
+                display: block;
+                padding: 0 1.5rem;
+                outline: none;
+            }
+        }
+
+    }
+}
+

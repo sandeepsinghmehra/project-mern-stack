@@ -1,0 +1,44 @@
+@include responsive(mobile){
+    width: 100%;
+    .sidebar {
+        display: none;
+        &_element{
+            display: none;
+        }
+    }
+}
+.sidebar {
+    &_element:first-child{
+        border-top: 1px solid $silverLight !important;
+        border-top-left-radius: 0.6rem;
+        border-top-right-radius: 0.6rem;
+    }
+    &_element:last-child{
+        border-bottom-left-radius: 0.6rem;
+        border-bottom-right-radius: 0.6rem;
+    }
+    &_element {
+        padding: 1.5rem;
+        background: #39A9CB;
+        border: 1px solid $silverLight;
+        border-top: none;
+        cursor: pointer;
+        a {
+            color: $black;
+            font-size: 1.4rem;
+        }
+        h3 {
+            font-size: 1.6rem;
+            font-weight: 400;
+        }
+        &:hover{
+            background: $green;
+        }
+        &:hover a{
+            color: $white;
+        }
+        &:hover h3{
+            color: $white;
+        }
+    }
+}
