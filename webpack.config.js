@@ -58,12 +58,12 @@ module.exports = {
     plugins: [
       new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
-        template: './frontend/public/index.html',
+        template: '/frontend/public/index.html',
         filename: 'index.html',
         chunks: ['index']
       }),
       new HtmlWebpackPlugin({
-        template: './admin-site/public/index.html',
+        template: '.admin-site/public/index.html',
         filename: 'admin/index.html',
         chunks: ['admin']
       })
