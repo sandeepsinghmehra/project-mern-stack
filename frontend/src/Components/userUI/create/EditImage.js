@@ -3,9 +3,9 @@ import {Helmet} from 'react-helmet';
 import {useState, useEffect} from 'react';
 import {useParams, useHistory} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
-import {updateImageAction} from '../../store/asyncMethods/PostMethods';
+import {updateImageAction} from '../../../store/asyncMethods/PostMethods';
 import toast, { Toaster } from 'react-hot-toast';
-import {RESET_UPDATE_IMAGE_ERRORS} from '../../store/types/PostTypes'; 
+import {RESET_UPDATE_IMAGE_ERRORS} from '../../../store/types/PostTypes'; 
 
 const EditImage = (props) => {
     const {id} = useParams();

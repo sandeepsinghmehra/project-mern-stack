@@ -4,7 +4,7 @@ import Sidebar from './Sidebar';
 import { useDispatch} from 'react-redux';
 import { fetchAll} from '../store/asyncMethods/PostMethods';
 import CommonHeader from './CommonHeader';
-const Dashboard = () => {
+const AdminDashboard = () => {
     const dispatch = useDispatch();
     useEffect(() => {
             dispatch(fetchAll());
@@ -137,4 +137,4 @@ const Dashboard = () => {
         </>);
 };
 
-export default Dashboard;
+export default AdminDashboard;

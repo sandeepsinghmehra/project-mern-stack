@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {Helmet} from 'react-helmet';
 import toast, { Toaster } from 'react-hot-toast';
 import {useDispatch, useSelector} from 'react-redux';
-import {postRegister} from '../../store/asyncMethods/AuthMethods';
+import {postRegister} from '../../../store/asyncMethods/AuthMethods';
 import BgImage from './BgImage';
 const Register = () => {
   const [state, setState] = useState({
@@ -55,7 +55,7 @@ const Register = () => {
                   <div className="account_section">
                     <form onSubmit={userRegister}>
                     <div className="group">
-                          <h3 className="form-heading" style={{color: "white"}}>Register</h3>
+                          <h3 className="form-heading">Register</h3>
                       </div>
                       <div  className="group">
                         <input

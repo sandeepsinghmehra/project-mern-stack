@@ -1,18 +1,18 @@
 import React, {useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {REDIRECT_FALSE, REMOVE_MESSAGE, SET_LOADER, CLOSE_LOADER, SET_MESSAGE} from '../store/types/PostTypes';
+import {REDIRECT_FALSE, REMOVE_MESSAGE, SET_LOADER, CLOSE_LOADER, SET_MESSAGE} from '../../store/types/PostTypes';
 import {Helmet} from 'react-helmet';
 import {Link, useParams} from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
-import {fetchPosts} from '../store/asyncMethods/PostMethods';
-import Loader from './Loader';
-import Sidebar from './Sidebar';
+import {fetchPosts} from '../../store/asyncMethods/PostMethods';
+import Loader from '../Loader';
+import Sidebar from '../Sidebar';
 import axios from 'axios';
 import moment from 'moment';
-import Pagination from './Pagination';
+import Pagination from '../Pagination';
 import {BsPencil, BsArchive, BsImage} from 'react-icons/bs';
 import { htmlToText } from 'html-to-text';
-import ImageDashboard from '../imgs/dashboard.jpg';
+import ImageDashboard from '../../imgs/dashboard.jpg';
 const Dashboard = () => {
     const { redirect, message, loading } = useSelector(state => state.PostReducer);
     const {user: {_id}, token,} = useSelector(state => state.AuthReducer);

@@ -1,14 +1,14 @@
 import {useEffect} from 'react';
 import { Helmet } from 'react-helmet';
-import ImageHome from '../imgs/website.jpg';
+import ImageHome from '../../imgs/website.jpg';
 import { useSelector, useDispatch} from 'react-redux';
 import {Link, useParams} from 'react-router-dom';
 import htmlToFormattedText from "html-to-formatted-text";
 import moment from 'moment';
-import { homePosts } from '../store/asyncMethods/PostMethods';
-import Loader from './Loader';
+import { homePosts } from '../../store/asyncMethods/PostMethods';
+import Loader from '../Loader';
 
-import Pagination from './Pagination';
+import Pagination from '../Pagination';
 
 const Home = () => {
     let {page} = useParams();

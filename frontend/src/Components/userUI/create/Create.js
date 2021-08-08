@@ -4,8 +4,8 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; 
 import toast, { Toaster } from 'react-hot-toast';
 import {useDispatch, useSelector} from "react-redux";
-import {createAction} from "../../store/asyncMethods/PostMethods";
-import  Loader from "../Loader"
+import {createAction} from "../../../store/asyncMethods/PostMethods";
+import  Loader from "../../Loader"
 
 const Create = (props) => {
     const {createErrors, redirect, loading} = useSelector(state => state.PostReducer);

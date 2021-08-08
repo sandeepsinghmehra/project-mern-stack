@@ -5,7 +5,7 @@ import moment from 'moment';
 import {htmlToText} from "html-to-text";
 import { postDetails, postComment, addLike, DisLike, notGiveHeart, giveHeart } from '../store/asyncMethods/PostMethods';
 import Loader from './Loader';
-import Comments from './Comments';
+import Comments from './userUI/Comments';
 import { Helmet } from 'react-helmet';
 import { AiFillLike, AiFillDislike, AiOutlineDislike, AiOutlineLike } from 'react-icons/ai';
 import {BsHeart, BsFillHeartFill } from 'react-icons/bs';

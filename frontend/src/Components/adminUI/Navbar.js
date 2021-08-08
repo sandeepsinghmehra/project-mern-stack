@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { FaBars } from 'react-icons/fa';
-import { LOGOUT } from '../store/types/UserTypes';
+import { LOGOUT } from '../../../../src/store/types/UserTypes';
 
 const Navbar = () => {
     const {

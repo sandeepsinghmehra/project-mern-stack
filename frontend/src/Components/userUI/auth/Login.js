@@ -3,7 +3,7 @@ import {Helmet} from 'react-helmet';
 import BgImage from './BgImage';
 import {useSelector, useDispatch} from "react-redux";
 import toast, { Toaster } from 'react-hot-toast';
-import {postLogin} from "../../store/asyncMethods/AuthMethods";
+import {postLogin} from "../../../store/asyncMethods/AuthMethods";
 
 
 const Login = () => {
@@ -56,7 +56,7 @@ const Login = () => {
                   <div className="account_section">
                     <form onSubmit={userLogin}>
                       <div className="group">
-                          <h3 className="form-heading" style={{color: "white"}}>Login</h3>
+                          <h3 className="form-heading">Login</h3>
                       </div>
                       <div  className="group">
                         <input 

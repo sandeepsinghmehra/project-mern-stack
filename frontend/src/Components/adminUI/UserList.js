@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import Navbar from './Navbar';
-import { fetchAll } from '../store/asyncMethods/PostMethods';
+import { fetchAll } from '../../../../src/store/asyncMethods/PostMethods';
 import { useSelector, useDispatch} from 'react-redux';
 import { Link } from 'react-router-dom';
 import moment from 'moment';

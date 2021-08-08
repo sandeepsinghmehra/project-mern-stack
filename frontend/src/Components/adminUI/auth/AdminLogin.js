@@ -2,9 +2,9 @@ import React, {useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import toast, { Toaster } from 'react-hot-toast';
-import { postLogin } from '../../store/asyncMethods/AuthMethods';
+import { postLogin } from '../../../store/asyncMethods/AuthMethods';
 
-const Login = () => {
+const AdminLogin = () => {
     const dispatch = useDispatch();
     const { loading, loginErrors } = useSelector((state)=>state.AuthReducer);
     const [state, setState] = useState({
@@ -92,4 +92,4 @@ const Login = () => {
             )
 }
 
-export default Login;
+export default AdminLogin;

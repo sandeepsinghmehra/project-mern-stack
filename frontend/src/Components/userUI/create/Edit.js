@@ -5,9 +5,9 @@ import toast, { Toaster } from 'react-hot-toast';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; 
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPost, updateAction } from '../../store/asyncMethods/PostMethods';
-import { POST_RESET, RESET_UPDATE_ERRORS } from '../../store/types/PostTypes';
-import Loader from '../Loader';
+import { fetchPost, updateAction } from '../../../store/asyncMethods/PostMethods';
+import { POST_RESET, RESET_UPDATE_ERRORS } from '../../../store/types/PostTypes';
+import Loader from '../../Loader';
 
 const Edit = () => {
     const {push} = useHistory();

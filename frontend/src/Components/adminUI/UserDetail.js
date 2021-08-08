@@ -6,7 +6,7 @@ import Navbar from './Navbar';
 import moment from 'moment';
 import {BiLowVision} from 'react-icons/bi';
 import { htmlToText } from 'html-to-text';
-import { updateAction, fetchPosts, userDetail } from '../store/asyncMethods/PostMethods';
+import { updateAction, fetchPosts, userDetail } from '../../../../src/store/asyncMethods/PostMethods';
 
 const UserDetail = () => {
     const {id} = useParams();

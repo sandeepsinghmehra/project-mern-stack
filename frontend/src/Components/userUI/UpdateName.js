@@ -1,11 +1,11 @@
-import Sidebar from './Sidebar';
+import Sidebar from '../Sidebar';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import { Helmet } from 'react-helmet';
-import { updateNameAction } from '../store/asyncMethods/ProfileMethods';
+import { updateNameAction } from '../../store/asyncMethods/ProfileMethods';
 import toast, { Toaster } from 'react-hot-toast';
-import { RESET_PROFILE_ERRORS } from '../store/types/ProfileTypes';
+import { RESET_PROFILE_ERRORS } from '../../store/types/ProfileTypes';
 
 const UpdateName = () => {
     const { push } = useHistory();

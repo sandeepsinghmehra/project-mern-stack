@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
-import Sidebar from './Sidebar';
+import Sidebar from '../Sidebar';
 import { useDispatch, useSelector } from 'react-redux';
-import {updatePasswordAction} from '../store/asyncMethods/ProfileMethods';
+import {updatePasswordAction} from '../../store/asyncMethods/ProfileMethods';
 import {Helmet} from 'react-helmet';
-import Loader from './Loader';
+import Loader from '../Loader';
 import toast, { Toaster } from 'react-hot-toast';
-import { RESET_PROFILE_ERRORS } from '../store/types/ProfileTypes';
+import { RESET_PROFILE_ERRORS } from '../../store/types/ProfileTypes';
 
 
 const ChangePasswd = (props) => {
