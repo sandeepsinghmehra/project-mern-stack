@@ -1,0 +1,8 @@
+.user{
+    text-align: center;
+    &_role{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
+}
