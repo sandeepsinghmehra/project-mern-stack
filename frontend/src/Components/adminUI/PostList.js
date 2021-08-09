@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Navbar from './Navbar';
-import { updateAction, fetchAll } from '../../../../src/store/asyncMethods/PostMethods';
+import { updateAction, fetchAll } from '../../store/asyncMethods/PostMethods';
 import { useSelector, useDispatch} from 'react-redux';
 import moment from 'moment';
 import { htmlToText } from 'html-to-text';

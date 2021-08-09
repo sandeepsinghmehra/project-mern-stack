@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { FaBars } from 'react-icons/fa';
-import { LOGOUT } from '../../../../src/store/types/UserTypes';
+import { LOGOUT } from "../../store/types/UserTypes";
 
 const Navbar = () => {
     const {
@@ -23,7 +23,6 @@ const Navbar = () => {
                         Dashboard
                     </h2>
                     <div className="user-wrapper">
-                        <img src="profile.jpg" width="40px" height="40px" alt="" />
                         <div>
                             <h4>{name}</h4>
                             <small>Super {role}</small>

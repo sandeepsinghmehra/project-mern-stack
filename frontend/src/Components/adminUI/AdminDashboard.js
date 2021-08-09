@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import Navbar from './Navbar';
 import Sidebar from './Sidebar';
 import { useDispatch} from 'react-redux';
-import { fetchAll} from '../store/asyncMethods/PostMethods';
+import { fetchAll } from '../../store/asyncMethods/PostMethods';
 import CommonHeader from './CommonHeader';
 const AdminDashboard = () => {
     const dispatch = useDispatch();

@@ -18,6 +18,7 @@
         padding: 0 ;
     }
 }
+
 .mt-80{
     margin-top: 8rem;
 }
@@ -49,6 +50,7 @@
 .length {
     font-size: 1.5rem;
 }
+
 .group {
     margin-top: 1.3rem;
     &_control {
@@ -78,11 +80,8 @@
     cursor: pointer;
 }
 
-.btn-default {
-    background: $green;
-}
 .btn-orange {
-    background: orange;
+    background: orangered;
 }
 .btn-block {
     width: 100%;
@@ -91,6 +90,10 @@
 .form-heading{
     font-size:2rem;
     font-weight: 400;
+}
+
+.btn-default {
+    background: $green;
 }
 
 .card {
@@ -102,11 +105,13 @@
         margin-bottom: 2rem;
     }
 }
+
 label {
     display: block;
     font-size: 1.3rem;
     margin-bottom: .4rem;
 }
+
 #image {
     display: none;
 }
@@ -163,3 +168,9 @@ a {
     font-weight: 500;
     text-align: center;
 }
+
+
+
+
+
+

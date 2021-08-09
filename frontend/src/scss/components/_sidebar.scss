@@ -42,3 +42,9 @@
         }
     }
 }
+.active {
+    background: $green;
+    a {
+        color: $white !important;
+    }
+}

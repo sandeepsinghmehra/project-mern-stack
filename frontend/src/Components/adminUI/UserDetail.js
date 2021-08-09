@@ -6,7 +6,7 @@ import Navbar from './Navbar';
 import moment from 'moment';
 import {BiLowVision} from 'react-icons/bi';
 import { htmlToText } from 'html-to-text';
-import { updateAction, fetchPosts, userDetail } from '../../../../src/store/asyncMethods/PostMethods';
+import { updateAction, fetchPostUserId, userDetail } from '../../store/asyncMethods/PostMethods';
 
 const UserDetail = () => {
     const {id} = useParams();
@@ -37,7 +37,7 @@ const UserDetail = () => {
 
     useEffect(() => {
         dispatch(userDetail(id));
-        dispatch(fetchPosts(id));
+        dispatch(fetchPostUserId(id));
     },[dispatch, id]);
     return (
         <>

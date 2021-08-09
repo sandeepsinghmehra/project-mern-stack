@@ -1,19 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
-
-:root {
-    --main-color:#3C5186;
-    --color-dark: #1D2231;
-    --text-grey: #8390A2;
-}
-
-
 .sidebar {
     width: 300px;
     position: fixed;
     left: 0;
     top: 0;
     height: 100%;
-    background: var(--main-color);
+    background: $Admin_main_color;
     z-index: 100;
     transition: width 300ms;
 }
@@ -45,7 +37,7 @@
     background-color: #fff;
     padding-top: 1rem;
     padding-bottom: 1rem;
-    color: var(--main-color);
+    color: $Admin_main_color;
     border-radius: 30px 0px 0px 30px;
 }
 .sidebar-menu a span:first-child {
@@ -136,7 +128,7 @@ header label span {
 
 .user-wrapper small {
     display: inline-block;
-    color: var(--text-grey);
+    color: $Admin_text_grey;
     margin-top: -10px !important;
 }
 
@@ -162,13 +154,13 @@ main {
 }
 .card-single div:last-child span {
     font-size: 3rem;
-    color: var(--main-color);
+    color: $Admin_main_color;
 }
 .card-single div:first-child span {
-    color: var(--text-grey);
+    color: $Admin_text_grey;
 }
 .card-single:last-child {
-    background: var(--main-color);
+    background: $Admin_main_color;
 }
 
 .card-single:last-child h1,
@@ -197,12 +189,12 @@ main {
     border-bottom: 1px solid #fefefe;
 }
 .card-header button {
-    background: var(--main-color);
+    background: $Admin_main_color;
     border-radius: 10px;
     color: #fff;
     font-size: .8rem;
     padding: .5rem 1rem;
-    border: 1px solid var(--main-color);
+    border: 1px solid $Admin_main_color;
 }
 table {
     border-collapse: collapse;
@@ -265,14 +257,14 @@ td .status {
 }
 .info small {
     font-weight: 600;
-    color: var(--text-grey);
+    color: $Admin_text_grey;
 }
 
 .contact span {
     font-size: 1.2rem;
     display: inline-block;
     margin-left: .5rem;
-    color: var(--main-color);
+    color: $Admin_main_color;
 }
 
 @media only screen and (max-width: 1200px) {
@@ -329,7 +321,7 @@ td .status {
     }
     header h2 label {
         display: inline-block;
-        background: var(--main-color);
+        background: $Admin_main_color;
         padding-right: 0rem;
         margin-right: 1rem;
         height: 40px;

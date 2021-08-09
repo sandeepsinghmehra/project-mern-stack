@@ -18,3 +18,5 @@ export const SET_DETAILS = 'SET_DETAILS';
 export const COMMENTS = 'COMMENTS';
 export const LIKES = 'LIKES';
 export const HEART = 'HEART';
+export const  USER_DETAIL = 'USER_DETAIL';
+export const POSTID = 'POSTID';

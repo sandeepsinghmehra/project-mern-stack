@@ -5,6 +5,8 @@ import {
 } from 'redux';
 import { 
     PostReducer,
+    FetchAll,
+    FetchAllPosts,
     FetchPosts,
     FetchPost, 
     UpdatePost, 
@@ -18,6 +20,8 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 const rootReducers = combineReducers({
     AuthReducer,
     PostReducer,
+    FetchAll,
+    FetchAllPosts,
     FetchPosts,
     FetchPost,
     UpdatePost,

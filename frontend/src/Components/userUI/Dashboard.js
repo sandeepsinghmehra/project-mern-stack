@@ -142,7 +142,12 @@ const Dashboard = () => {
                                     </div>} 
                                 </div>
                             </div>
-                    )) : "You don't have any post" : <Loader />}
+                    )) : <div className="col-4 p-10">
+                            <div><h1>No post here</h1></div>
+                                <div className="mt-20">
+                                    <Link to="/create" className="btn btn-default" style={{background: "blue"}}>create your first post</Link>
+                                </div>
+                         </div> : <Loader />}
                     </div>
                     <Pagination path="dashboard" page={page} perPage={perPage} count={count} />
                 </div>

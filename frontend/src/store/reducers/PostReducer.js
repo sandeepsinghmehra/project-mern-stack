@@ -19,6 +19,8 @@ import {
         COMMENTS,
         LIKES,
         HEART,
+        POSTID,
+        USER_DETAIL,
  } from '../types/PostTypes';
 
 const initState = {
@@ -26,6 +28,8 @@ const initState = {
      createErrors: [],
      redirect: false,
      message: '',
+     users:[],
+     userObj: {},
      posts: [],
      perPage: 0,
      count: 0,
@@ -111,11 +115,38 @@ export const PostReducer = (state = initState, action) => {
                     hearts: payload.data.response.hearts,
                 }
             }
+        case USER_DETAIL:
+            return {
+                ...state,
+                userObj: payload,
+            }
+        case POSTID:
+            return {
+                ...state,
+                posts: payload,
+            }
         default:
             return state;
     }
 };
 
+export const FetchAll = (state = initState, action)=>{
+    const { type, payload } = action;
+    if(type === SET_POSTS){
+        return { ...state, users: payload.users, posts: payload.posts, comments: payload.comments };
+    } else {
+        return state;
+    }
+}
+
+export const FetchAllPosts = (state = initState, action)=>{
+    const { type, payload } = action;
+    if(type === SET_POSTS){
+        return { ...state, posts: payload.data, countPost: payload.countPost };
+    } else {
+        return state;
+    }
+}
 
 export const FetchPosts = (state = initState, action)=>{
     const { payload } = action;
@@ -189,3 +220,6 @@ export const UpdateImage = (state = initState, action) => {
             return state;
     }
 }
+
+
+

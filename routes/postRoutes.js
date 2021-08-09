@@ -31,7 +31,7 @@ router.get('/post/:id', auth, fetchPost );
 router.get('/delete/:id', auth, deletePost );
 router.get('/home/:page', home);
 router.get('/explore/:id', postDetails);
-router.get('/detailsbyid/:id', postDetailsbyid);
+router.get('/explorebyid/:id', postDetailsbyid);
 router.get('/userdetail/:id', userDetailRoute);
 router.post('/comment', auth, postComment);
 router.put('/like', auth, postLike);

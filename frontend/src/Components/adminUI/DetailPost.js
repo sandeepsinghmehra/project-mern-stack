@@ -3,7 +3,7 @@ import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
 import { htmlToText } from "html-to-text";
 import { useSelector, useDispatch } from "react-redux";
-import { postDetailsbyid } from "../../../../src/store/asyncMethods/PostMethods";
+import { postDetailsbyid } from "../../store/asyncMethods/PostMethods";
 import { useParams } from "react-router-dom";
 import moment from 'moment';
 
@@ -17,7 +17,6 @@ const DetailPost = () => {
     } = useSelector((state) => state.AuthReducer);
     
     const {details} = useSelector((state) => state.PostReducer);
-    console.log('details',details);
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(postDetailsbyid(id));

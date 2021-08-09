@@ -219,10 +219,8 @@ module.exports.fetchPostsById = async (req, res) => {
 }
 module.exports.userDetailRoute = async (req, res) => {
     const id = req.params.id;
-    console.log('userid detail', id);
     try {
         const user = await User.findById({_id : id});
-        console.log('user detail', user);
         return res.status(200).json({user});
         } catch (error) {
         return res.status(500).json({errors: error, msg:error.message});

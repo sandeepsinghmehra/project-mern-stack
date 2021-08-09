@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import toast, { Toaster } from 'react-hot-toast';
-import { postLogin } from '../../../store/asyncMethods/AuthMethods';
+import { postAdminLogin } from '../../../store/asyncMethods/AuthMethods';
 
 const AdminLogin = () => {
     const dispatch = useDispatch();
@@ -20,7 +20,7 @@ const AdminLogin = () => {
     const userLogin = (e) => {
       e.preventDefault();
       console.log('state value: ', state);
-      dispatch(postLogin(state));
+      dispatch(postAdminLogin(state));
     };
     useEffect( () => {
       if(loginErrors.length > 0){
@@ -49,8 +49,8 @@ const AdminLogin = () => {
                     />
     
                     <div className="col-12">
-                        <div className="account">
-                        <div className="account_section">
+                        <div className="accountAdmin">
+                        <div className="accountAdmin_section">
                             <form onSubmit={userLogin}>
                             <div className="group">
                                 <h3 className="form-heading" style={{color: "white"}}>Admin Login</h3>
