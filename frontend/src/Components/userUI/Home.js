@@ -7,6 +7,7 @@ import htmlToFormattedText from "html-to-formatted-text";
 import moment from 'moment';
 import { homePosts } from '../../store/asyncMethods/PostMethods';
 import Loader from '../Loader';
+import Footer from '../Footer';
 
 import Pagination from '../Pagination';
 
@@ -78,6 +79,7 @@ const Home = () => {
                 </div>
                 <Pagination path="home" page={page} perPage={perPage} count={count}/>
             </div>
+            <Footer />
         </>
     )
 }

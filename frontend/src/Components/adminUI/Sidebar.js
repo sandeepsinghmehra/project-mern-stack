@@ -8,14 +8,14 @@ const Sidebar = () => {
     return (
         <>
             <input type="checkbox" id="nav-toggle" />  
-            <div className="sidebar">
-                    <div className="sidebar-brand">
+            <div className="sidebr">
+                    <div className="sidebr-brand">
                         <h2><span><FaFont /></span> <span>Articles</span></h2>
                     </div>
-                    <div className="sidebar-menu">
+                    <div className="sidebr-menu">
                         <ul>
                             <li>
-                                <Link to="/" className={(location.pathname === '/dashboard') ? "active" : ''}>
+                                <Link to="/admindashboard" className={(location.pathname === '/admindashboard') ? "active" : ''}>
                                     <span>
                                         <GoDashboard />
                                     </span>

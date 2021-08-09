@@ -12,6 +12,7 @@ import moment from 'moment';
 import Pagination from '../Pagination';
 import {BsPencil, BsArchive, BsImage} from 'react-icons/bs';
 import { htmlToText } from 'html-to-text';
+import Footer from '../Footer';
 import ImageDashboard from '../../imgs/dashboard.jpg';
 const Dashboard = () => {
     const { redirect, message, loading } = useSelector(state => state.PostReducer);
@@ -152,7 +153,9 @@ const Dashboard = () => {
                     <Pagination path="dashboard" page={page} perPage={perPage} count={count} />
                 </div>
             </div>
+            <Footer />
         </div> 
+
         </>
     )
 }

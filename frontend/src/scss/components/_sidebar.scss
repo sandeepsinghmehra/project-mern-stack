@@ -1,5 +1,4 @@
 @include responsive(mobile){
-    width: 100%;
     .sidebar {
         display: none;
         &_element{

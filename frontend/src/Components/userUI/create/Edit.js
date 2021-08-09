@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchPost, updateAction } from '../../../store/asyncMethods/PostMethods';
 import { POST_RESET, RESET_UPDATE_ERRORS } from '../../../store/types/PostTypes';
 import Loader from '../../Loader';
+import Footer from '../../Footer';
 
 const Edit = () => {
     const {push} = useHistory();
@@ -141,6 +142,7 @@ const Edit = () => {
                 </div>
             </div>
         </div>
+        <Footer />
     </div>
        ) : (<Loader />) 
     

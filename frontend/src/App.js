@@ -24,7 +24,7 @@ import UserList from './Components/adminUI/UserList';
 import UserDetail from './Components/adminUI/UserDetail';
 import PostList from './Components/adminUI/PostList';
 import DetailPost from "./Components/adminUI/DetailPost";
-import Footer from "./Components/Footer";
+
 import Store from './store';
 
 function App() {
@@ -59,7 +59,6 @@ function App() {
 
        <Route component={NotFound} />
      </Switch>
-     <Footer />
    </Router>
    </Provider>
   );
