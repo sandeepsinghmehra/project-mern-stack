@@ -50,8 +50,7 @@ const PostList = () => {
                     <div className="projects">
                         <div className="card">
                             <div className="card-header">
-                                <h2>Recent Posts</h2>
-                                <button>See all <span className="las la-arrow-right"></span></button>
+                                <h2>All Posts</h2>
                             </div>
                                         <div className="card-body">
                                             <div className="table-responsive">

@@ -12,7 +12,7 @@ const Navbar = () => {
         localStorage.removeItem('myToken');
         dispatch({type: LOGOUT });
     }
-    const Links = user ?  (
+    const Links = user.role === 'user' ?  (
          <div className="navbar_right">
              <li className="navbar_right_mobile">
                 <Link to="/">Home</Link>
@@ -51,7 +51,7 @@ const Navbar = () => {
                 </div>
             </div>
         </nav>
-        {user ?
+        {user.role === 'user' ?
         <div className="navbar_bottom">
             <span><Link to="/"><AiFillHome /></Link></span>
             <span><Link to="/create"><IoMdAddCircle /></Link></span>

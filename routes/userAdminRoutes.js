@@ -8,10 +8,10 @@ const router = app.Router();
 router.get("/users", async (req, res)=>{
     try {
         const users = await User.find();
-        const posts = await Post.find();
+        const posts = await Post.find().sort({ createdAt: -1 });
         const comments = await Comment.find();
         if(users){
-            return res.status(200).json({users, posts, comments });
+            return res.status(200).json({ users, posts, comments });
         }
     } catch (error) {
         return res.status(500).json({ errors: error});

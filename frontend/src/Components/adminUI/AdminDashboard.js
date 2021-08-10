@@ -1,10 +1,16 @@
 import React, {useEffect} from 'react';
 import Navbar from './Navbar';
 import Sidebar from './Sidebar';
-import { useDispatch} from 'react-redux';
+import moment from 'moment';
+import { htmlToText } from 'html-to-text';
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector} from 'react-redux';
 import { fetchAll } from '../../store/asyncMethods/PostMethods';
 import CommonHeader from './CommonHeader';
+import { BiLowVision } from "react-icons/bi";
 const AdminDashboard = () => {
+    const {posts, users} = useSelector(state => state.FetchAll);
+    
     const dispatch = useDispatch();
     useEffect(() => {
             dispatch(fetchAll());
@@ -23,42 +29,34 @@ const AdminDashboard = () => {
                                 <div className="card">
                                     <div className="card-header">
                                         <h2>Recent Posts</h2>
-                                        <button>See all <span className="las la-arrow-right"></span></button>
+                                        <Link to="/posts"><button>See all <span className="las la-arrow-right"></span></button></Link>
                                     </div>
                                     <div className="card-body">
                                         <div className="table-responsive">
-                                            <table width="100%">
-                                                <thead>
-                                                    <tr>
-                                                        <td>Project Title</td>
-                                                        <td>Department</td>
-                                                        <td>Status</td>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>UI/UX Design</td>
-                                                        <td>UI Team</td>
-                                                        <td>
-                                                            <span className="status purple"></span>review
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Web Development</td>
-                                                        <td>Frontend</td>
-                                                        <td>
-                                                            <span className="status pink"></span>in progress
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Ushop app</td>
-                                                        <td>UI Team</td>
-                                                        <td>
-                                                            <span className="status orange"></span>Pending
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                        <table width="100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <td width="30%">Post Title</td>
+                                                            <td width="50%">Body</td>
+                                                            <td width="10%">Date</td>
+                                                            <td width="10%">Action</td>
+                                                        </tr>
+                                                    </thead>
+                                                    {posts?.map(post => (<tbody>
+                                                        <tr>
+                                                            <td>{post?.title}</td>
+                                                            <td>{htmlToText(post?.body?.slice(0,50))}</td>
+                                                            <td> <span>{moment(post.createdAt).fromNow()}</span></td>
+                                                        
+                                                            <td style={{textAlign:"center"}}>
+                                                                <Link to={`/postdetails/${post._id}`} >
+                                                                    <BiLowVision />
+                                                                </Link>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                    ))}
+                                                </table>
                                         </div>
                                     </div>
                                 </div>
@@ -67,67 +65,30 @@ const AdminDashboard = () => {
                                 <div className="card">
                                     <div className="card-header">
                                         <h3>New users</h3>
-                                        <button>See all <span className="las la-arrow-right"></span></button>
+                                        <Link to="/users"><button>See all <span className="las la-arrow-right"></span></button></Link>
                                     </div>
                                     <div className="card-body">
-                                        <div className="customer">
-                                            <div className="info">
-                                                <img src="profile.jpg" width="40px" height="40px" alt="profile_photo" />
-                                                <div>
-                                                    <h4>Lewis s. Coufinght</h4>
-                                                    <small>CEO experts</small>
-                                                </div>
-                                            </div>
-                                
-                                            <div className="contact">
-                                                <span className="las la-user-circle"></span>
-                                                <span className="las la-comment"></span>
-                                                <span className="las la-phone"></span>
-                                            </div>
+                                        <div className="table-responsive">
+                                            <table width="100%">
+                                                <thead>
+                                                    <tr>
+                                                        <td>User Name</td>
+                                                        <td>User Email</td>
+                                                        <td>Date</td>
+                                                        <td>Action</td>
+                                                    </tr>
+                                                </thead>
+                                                {  users?.map(user => (<tbody key={user._id}>
+                                                    <tr>
+                                                        <td>{user.name}</td>
+                                                        <td>{user.email}</td>
+                                                        <td> <span>{moment(user.updatedAt).fromNow()}</span></td>
+                                                        <td><Link to={`/userdetails/${user._id}`} ><BiLowVision /></Link></td>
+                                                    </tr>
+                                                </tbody>
+                                                ))}
+                                            </table>
                                         </div>
-                                        <div className="customer">
-                                            <div className="info">
-                                                <img src="profile.jpg" width="40px" height="40px" alt="profile" />
-                                                <div>
-                                                    <h4>Lewis s. Coufinght</h4>
-                                                    <small>CEO experts</small>
-                                                </div>
-                                            </div>
-                                            <div className="contact">
-                                                <span className="las la-user-circle"></span>
-                                                <span className="las la-comment"></span>
-                                                <span className="las la-phone"></span>
-                                            </div>
-                                        </div>
-                    
-                                        <div className="customer">
-                                            <div className="info">
-                                                <img src="profile.jpg" width="40px" height="40px" alt="profile" />
-                                                <div>
-                                                    <h4>Lewis s. Coufinght</h4>
-                                                    <small>CEO experts</small>
-                                                </div>
-                                            </div>
-                                            <div className="contact">
-                                                <span className="las la-user-circle"></span>
-                                                <span className="las la-comment"></span>
-                                                <span className="las la-phone"></span>
-                                            </div>
-                                        </div>
-                                        <div className="customer">
-                                            <div className="info">
-                                                <img src="profile.jpg" width="40px" height="40px" alt="profile" />
-                                                <div>
-                                                    <h4>Lewis s. Coufinght</h4>
-                                                    <small>CEO experts</small>
-                                                </div>
-                                            </div>
-                                            <div className="contact">
-                                                <span className="las la-user-circle"></span>
-                                                <span className="las la-comment"></span>
-                                                <span className="las la-phone"></span>
-                                            </div>
-                                        </div>    
                                     </div>
                                 </div>
                             </div>
