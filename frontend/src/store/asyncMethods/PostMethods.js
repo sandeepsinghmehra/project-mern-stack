@@ -132,6 +132,19 @@ export const updateAction = (editData) => {
         }
     }
 }
+export const updateActionStatus = (editData) => {
+    return async (dispatch)=>{
+        dispatch({type: SET_LOADER});
+        console.log(editData);
+        try {
+            await axios.post("/updatepost", editData);
+            dispatch({type: CLOSE_LOADER});
+        } catch (error) {
+            dispatch({type: CLOSE_LOADER});
+            console.log(error.response);
+        }
+    }
+}
 export const userDetail = (id) => {
     return async (dispatch) => {
         dispatch({type: SET_LOADER});

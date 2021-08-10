@@ -127,7 +127,9 @@ const Create = (props) => {
                                                 value={state.title}
                                                 onChange={handleInput}
                                                 className="group_control" 
-                                                placeholder="Post title..." />
+                                                placeholder="Post title..."
+                                            />
+                                            <p className="length">{state.title ? 50 - state.title.length : 50}</p>
                                         </div>
                                         <div className="group">
                                             <label 

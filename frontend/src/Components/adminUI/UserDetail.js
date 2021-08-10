@@ -6,7 +6,7 @@ import Navbar from './Navbar';
 import moment from 'moment';
 import {BiLowVision} from 'react-icons/bi';
 import { htmlToText } from 'html-to-text';
-import { updateAction, fetchPostUserId, userDetail } from '../../store/asyncMethods/PostMethods';
+import { updateActionStatus, fetchPostUserId, userDetail } from '../../store/asyncMethods/PostMethods';
 
 const UserDetail = () => {
     const {id} = useParams();
@@ -18,7 +18,7 @@ const UserDetail = () => {
         const confirm = window.confirm("Are you want to approved this Post?");
         if(confirm){
                 try {
-                    dispatch( updateAction({status: "true",id: id,}));
+                    dispatch( updateActionStatus({status: "true",id: id,}));
                 } catch (error) {
                     console.log(error);
                 }
@@ -28,7 +28,7 @@ const UserDetail = () => {
         const confirm = window.confirm("Are you want to panding this Post?");
         if(confirm){
                 try {
-                    dispatch( updateAction({status: "false",id: id,}));
+                    dispatch( updateActionStatus({status: "false",id: id,}));
                 } catch (error) {
                     console.log(error);
                 }

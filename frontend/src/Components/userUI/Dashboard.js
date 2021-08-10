@@ -137,7 +137,7 @@ const Dashboard = () => {
                                     </div>: <div className="dashboard_button">
                                         <input 
                                                 type="button"
-                                                value="panding"
+                                                value="pending"
                                                 className="btn btn-orange btn-block"
                                             />
                                     </div>} 

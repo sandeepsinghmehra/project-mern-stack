@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Navbar from './Navbar';
-import { updateAction, fetchAll } from '../../store/asyncMethods/PostMethods';
+import { updateActionStatus, fetchAll } from '../../store/asyncMethods/PostMethods';
 import { useSelector, useDispatch} from 'react-redux';
 import moment from 'moment';
 import { htmlToText } from 'html-to-text';
@@ -18,7 +18,7 @@ const PostList = () => {
         const confirm = window.confirm("Are you want to approved this Post?");
         if(confirm){
                 try {
-                    dispatch( updateAction({status: "true",id: id,}));
+                    dispatch( updateActionStatus({status: "true",id: id,}));
                 } catch (error) {
                     console.log(error);
                 }
@@ -28,7 +28,7 @@ const PostList = () => {
         const confirm = window.confirm("Are you want to panding this Post?");
         if(confirm){
                 try {
-                    dispatch( updateAction({status: "false",id: id,}));
+                    dispatch( updateActionStatus({status: "false",id: id,}));
                 } catch (error) {
                     console.log(error);
                 }
