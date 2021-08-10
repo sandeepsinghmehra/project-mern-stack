@@ -1,11 +1,12 @@
 import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {Link} from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {LOGOUT} from "../store/types/UserTypes";
-import { AiFillHome } from "react-icons/ai";
-import { IoMdAddCircle } from "react-icons/io";
-import { GoDashboard } from "react-icons/go";
+import { AiFillHome, AiFillDashboard, AiOutlineHome, AiOutlineDashboard } from "react-icons/ai";
+import { IoMdAddCircle, IoMdAddCircleOutline } from "react-icons/io";
+
 const Navbar = () => {
+    const location = useLocation();
     const {user} = useSelector((state) => state.AuthReducer);
     const dispatch = useDispatch();
     const logout = () =>{
@@ -53,9 +54,9 @@ const Navbar = () => {
         </nav>
         {user.role === 'user' ?
         <div className="navbar_bottom">
-            <span><Link to="/"><AiFillHome /></Link></span>
-            <span><Link to="/create"><IoMdAddCircle /></Link></span>
-            <span><Link to="/dashboard"><GoDashboard /></Link></span>
+            {location.pathname === '/'?<span><Link to="/"><AiOutlineHome /></Link></span>:<span><Link to="/"><AiFillHome /></Link></span>}
+            {location.pathname === '/create'?<span><Link to="create"><IoMdAddCircleOutline /></Link></span>:<span><Link to="/create"><IoMdAddCircle /></Link></span>}
+            {location.pathname === '/dashboard'? <span><Link to="/dashboard"><AiOutlineDashboard /></Link></span>:<span><Link to="/dashboard"><AiFillDashboard /></Link></span>}  
         </div>: ''}
         </>
     )
