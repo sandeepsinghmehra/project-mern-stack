@@ -20,6 +20,7 @@ const Home = () => {
     
     const {loading} = useSelector(state => state.PostReducer);
     const {posts, count, perPage} = useSelector(state => state.FetchPosts);
+    console.log('postshome',posts)
     const dispatch = useDispatch();
     useEffect(()=>{
         dispatch(homePosts(page));
@@ -41,9 +42,8 @@ const Home = () => {
                     </div>
                     <div>
                         <h2 className="pt-30">Current Posts</h2>
-                        {!loading ? posts.length > 0 ? posts.map(post => (
-                            post.status === 'true' ? (
-                                    <div className="col-4 p-10" style={{display:'inline-block', margin:'-0.1rem'}} key={post._id}>
+                        {!loading ? posts?.length > 0 ? posts.map(post => (
+                                    <div className="col-4 p-10" style={{display:'inline-block', overflow:'hidden'}} key={post._id}>
                                         <div className="dashboard">
                                             <div className="dashboard_card">
                                                 <div className="header_card">
@@ -73,7 +73,7 @@ const Home = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>) : ' '
+                                    </div>
                         )) : '': <Loader />}
                     </div>
                 </div>

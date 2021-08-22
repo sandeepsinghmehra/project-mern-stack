@@ -25,7 +25,7 @@ const PostList = () => {
         }
     }
     const updatePostPanding = async (id) => {
-        const confirm = window.confirm("Are you want to panding this Post?");
+        const confirm = window.confirm("Are you want to pending this Post?");
         if(confirm){
                 try {
                     dispatch( updateActionStatus({status: "false",id: id,}));

@@ -175,10 +175,11 @@ module.exports.deletePost = async (req, res) => {
 
 module.exports.home = async (req, res) => {
     const page = req.params.page;
-    const perPage = 6;
+    const perPage = 3;
     const skip = (page - 1) * perPage;
     try {
         const count = await Post.find({}).countDocuments();
+        const posts = await Post.find({status: true}).skip(skip).limit(perPage).sort({createdAt: -1});
         return res.status(200).json({response: posts, count, perPage});
     } catch (error) {
         return res.status(500).json({errors: error, msg: error.message});
@@ -208,10 +209,8 @@ module.exports.postDetailsbyid = async (req, res) => {
 };
 module.exports.fetchPostsById = async (req, res) => {
     const id = req.params.id;
-    console.log('id', id);
     try {
         const posts = await Post.find({userId: id});
-        console.log('your posts', posts);
         return res.status(200).json({posts});
     } catch (error) {
         return res.status(500).json({errors: error, msg: error.message});
