@@ -20,7 +20,6 @@ const Home = () => {
     
     const {loading} = useSelector(state => state.PostReducer);
     const {posts, count, perPage} = useSelector(state => state.FetchPosts);
-    console.log('postshome',posts)
     const dispatch = useDispatch();
     useEffect(()=>{
         dispatch(homePosts(page));

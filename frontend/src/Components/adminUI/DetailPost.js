@@ -48,7 +48,7 @@ const DetailPost = () => {
                                                    {htmlToText(details?.body)}
                                                 </div>
                                                 <div className="details_body_image">
-                                                    {details?.image}  
+                                                <img src={`/images/${details.image}`} alt={details.image} />
                                                 </div>
                                         </div>
                                     </div>: 'You are not an Admin'}

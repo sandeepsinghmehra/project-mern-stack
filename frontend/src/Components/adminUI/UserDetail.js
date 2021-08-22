@@ -4,16 +4,21 @@ import { useParams, Link } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Navbar from './Navbar';
 import moment from 'moment';
+import axios from 'axios';
 import {BiLowVision} from 'react-icons/bi';
+import {FcApproval} from 'react-icons/fc';
+import {VscUnverified} from 'react-icons/vsc';
 import { htmlToText } from 'html-to-text';
 import { updateActionStatus, fetchPostUserId, userDetail } from '../../store/asyncMethods/PostMethods';
 
 const UserDetail = () => {
     const {id} = useParams();
-    const {user} = useSelector(state => state.AuthReducer);
+    const {user, token} = useSelector(state => state.AuthReducer);
+    
+    console.log('user._id', user._id, user.name);
     const {userObj, posts} = useSelector(state => state.PostReducer);
+    console.log('userObj._id', userObj._id, userObj.name);
     const dispatch = useDispatch();
-    console.log('userObj: ', userObj);
     const updatePostApproved = async (id) => {
         const confirm = window.confirm("Are you want to approved this Post?");
         if(confirm){
@@ -34,7 +39,21 @@ const UserDetail = () => {
                 }
         }
     }
-
+    const deleteUser = async (id) => {
+        const confirm = window.confirm("Are you want to Delete this User Permanently?");
+        if(confirm){
+            try {
+                const config = {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    }
+                };
+                await axios.get(`/delete/${id}`, config);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    }
     useEffect(() => {
         dispatch(userDetail(id));
         dispatch(fetchPostUserId(id));
@@ -67,7 +86,7 @@ const UserDetail = () => {
                                                         }
                                                 </span>
                                             </div>
-                                            <button className="btn btn-orange"  > Delete User </button>
+                                            <button onClick={() => deleteUser(userObj?._id)} className="btn btn-orange"  > Delete User </button>
             
                                 </div>: 'You are not an Admin'}
                         </div>
@@ -99,8 +118,8 @@ const UserDetail = () => {
                                                             <td>
                                                                 <span className="status orange">
                                                                     {post.status === 'false' ? 
-                                                                    <button className="btn btn-default" onClick={() => updatePostApproved(post._id)}>Panding</button>:
-                                                                    <button className="btn btn-default btn-green" onClick={() => updatePostPanding(post._id)}>Approved</button>}
+                                                                    <button className="btn" onClick={() => updatePostApproved(post._id)}><VscUnverified color="red"/> </button>:
+                                                                    <button className="btn" onClick={() => updatePostPanding(post._id)}><FcApproval /> </button>}
                                                                 </span>
                                                             </td>
                                                             <td style={{textAlign:"center"}}>

@@ -18,7 +18,6 @@ const Dashboard = () => {
     const { redirect, message, loading } = useSelector(state => state.PostReducer);
     const {user: {_id}, token,} = useSelector(state => state.AuthReducer);
     const { posts, count, perPage } = useSelector((state) => state.FetchPosts);
-    console.log('all posts: ', posts);
     let {page} = useParams();
     if(page === undefined){
         page = 1;

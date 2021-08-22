@@ -11,7 +11,6 @@ import CommonHeader from './CommonHeader';
 
 const PostList = () => {
     const {posts} = useSelector(state => state.FetchAll);
-    console.log(posts);
     const dispatch = useDispatch();
 
     const updatePostApproved = async (id) => {

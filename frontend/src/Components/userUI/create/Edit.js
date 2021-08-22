@@ -40,7 +40,7 @@ const Edit = () => {
         } else {
             dispatch(fetchPost(id));
         }
-    },[dispatch, id, post, postStatus]);
+    },[dispatch, post]);
     
     
     const updatePost = (e) => {
