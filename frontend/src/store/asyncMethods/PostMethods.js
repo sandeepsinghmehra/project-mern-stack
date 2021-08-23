@@ -135,9 +135,34 @@ export const updateAction = (editData) => {
 export const updateActionStatus = (editData) => {
     return async (dispatch)=>{
         dispatch({type: SET_LOADER});
-        console.log(editData);
         try {
             await axios.post("/updatepost", editData);
+            dispatch({type: CLOSE_LOADER});
+        } catch (error) {
+            dispatch({type: CLOSE_LOADER});
+            console.log(error.response);
+        }
+    }
+}
+export const makeAdminRole = (editDataRole) => {
+    return async (dispatch) => {
+        dispatch({type: SET_LOADER});
+        console.log('makeAdmin', editDataRole);
+        try {
+            await axios.post("/makeAdmin", editDataRole);
+            dispatch({type: CLOSE_LOADER});
+        } catch (error) {
+            dispatch({type: CLOSE_LOADER});
+            console.log(error.response);
+        }
+    }
+}
+export const makeUserRole = (editDataRole) => {
+    return async (dispatch) => {
+        dispatch({type: SET_LOADER});
+        console.log('makeUser', editDataRole);
+        try {
+            await axios.post("/makeUser", editDataRole);
             dispatch({type: CLOSE_LOADER});
         } catch (error) {
             dispatch({type: CLOSE_LOADER});

@@ -152,7 +152,6 @@ export const FetchPosts = (state = initState, action)=>{
     const { payload } = action;
     switch(action.type){
     case SET_POSTS:
-        console.log('posts',payload.response);
         return { 
             ...state, 
             posts: payload.response, 
