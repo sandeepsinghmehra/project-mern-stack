@@ -10,7 +10,8 @@ import Sidebar from '../Sidebar';
 import axios from 'axios';
 import moment from 'moment';
 import Pagination from '../Pagination';
-import {BsPencil, BsArchive, BsImage} from 'react-icons/bs';
+import {BsPencil, BsImage} from 'react-icons/bs';
+import {AiOutlineDelete} from 'react-icons/ai';
 import { htmlToText } from 'html-to-text';
 import Footer from '../Footer';
 import ImageDashboard from '../../imgs/dashboard.jpg';
@@ -108,7 +109,7 @@ const Dashboard = () => {
                     <div> 
                         <h2>Your Posts</h2> 
                     {!loading ? posts.length > 0 ? posts.map(post => (
-                        <div className="col-4 p-10" style={{display:'inline-block'}} key={post._id}>
+                        <div className="col-4 p-10" style={{display:'inline-block',}} key={post._id}>
                             <div className="dashboard">
                                 <div className="dashboard_card">
                                 <div className="dashboard_card_image">
@@ -125,7 +126,7 @@ const Dashboard = () => {
                                 <div className="dashboard_links">
                                     <Link to={`/updateImage/${post._id}`}><BsImage className='icon' /></Link>
                                     <Link to={`/edit/${post._id}`}><BsPencil className="icon"/></Link>
-                                    <BsArchive onClick={() => deletePost(post._id)} className="icon" />
+                                    <AiOutlineDelete onClick={() => deletePost(post._id)} className="icon" />
                                 </div> 
                                 {post.status === 'true' ? <div className="dashboard_button">
                                                 <input 

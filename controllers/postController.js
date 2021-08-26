@@ -90,8 +90,8 @@ module.exports.fetchPosts = async (req, res) => {
 module.exports.fetchPost = async (req, res) => {
     const id = req.params.id;
     try {
-        const post = await Post.findOne({ _id: id });
-        return res.status(200).json({ post });
+        const response = await Post.findOne({ _id: id });
+        return res.status(200).json({ response });
     } catch (error) {
         return res.status(500).json({errors: error, msg: error.message});
     }
@@ -191,7 +191,6 @@ module.exports.postDetails = async (req, res) => {
     try {
         const post = await Post.findOne({ slug : id});
         const comments = await Comment.find({postId: post._id}).sort({updatedAt: -1});
-        
         return res.status(200).json({post, comments});
     } catch (error) {
         return res.status(500).json({errors: error, msg: error.message});
@@ -219,22 +218,46 @@ module.exports.fetchPostsById = async (req, res) => {
 module.exports.userDetailRoute = async (req, res) => {
     const id = req.params.id;
     try {
-        const user = await User.findById({_id : id});
-        return res.status(200).json({user});
+            const response = await User.findById({_id : id});
+            return res.status(200).json({response});
         } catch (error) {
         return res.status(500).json({errors: error, msg:error.message});
     }
 }
 module.exports.postComment = async (req, res) => {
-    const {id, comment, userName} = req.body;
+    const {id, comment, userName, userRole} = req.body;
     try {
-        const response = await Comment.create({postId: id, comment: comment, userName: userName});
+        const response = await Comment.create({postId: id, comment: comment, userName: userName, userRole: userRole});
         return res.status(200).json({msg: 'Your comment has been published'});
     } catch (error) {
         return res.status(500).json({errors: error, msg: error.message});
     }
 };
-
+module.exports.deleteCommentByUser = async (req, res) =>{
+    const id = req.params.id;
+    const role = req.params.role;
+    try {
+        if(role === 'user'){
+            await Comment.findByIdAndDelete(id);   
+            return res.status(200).json({msg: 'This comment has been deleted.'});
+        }
+     
+    } catch (error) {
+        return res.status(500).json({errors: error});
+    }
+}
+module.exports.deleteCommentByAdmin = async (req, res) =>{
+    const id = req.params.id;
+    const role = req.params.role;
+    try {
+        if(role === 'admin'){
+            await Comment.findByIdAndDelete(id);   
+            return res.status(200).json({msg: 'This comment has been deleted.'});
+        }
+    } catch (error) {
+        return res.status(500).json({errors: error});
+    }
+}
 
 module.exports.postLike = async (req, res) => {
     const {postid} = req.body;

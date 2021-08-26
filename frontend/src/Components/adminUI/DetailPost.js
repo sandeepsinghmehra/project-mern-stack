@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
+import Comments from "../userUI/Comments";
 import { htmlToText } from "html-to-text";
 import { useSelector, useDispatch } from "react-redux";
 import { postDetailsbyid } from "../../store/asyncMethods/PostMethods";
@@ -16,7 +17,7 @@ const DetailPost = () => {
         }
     } = useSelector((state) => state.AuthReducer);
     
-    const {details} = useSelector((state) => state.PostReducer);
+    const {details, comments} = useSelector((state) => state.PostReducer);
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(postDetailsbyid(id));
@@ -51,6 +52,7 @@ const DetailPost = () => {
                                                 <img src={`/images/${details.image}`} alt={details.image} />
                                                 </div>
                                         </div>
+                                        <Comments comments={comments} />
                                     </div>: 'You are not an Admin'}
                             </div>
                         </div>

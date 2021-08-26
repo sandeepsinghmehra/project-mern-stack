@@ -1,45 +1,67 @@
 import React, { useEffect } from 'react';
 import Navbar from './Navbar';
 import { updateActionStatus, fetchAll } from '../../store/asyncMethods/PostMethods';
+import { RESET_UPDATE_ERRORS } from '../../store/types/PostTypes';
 import { useSelector, useDispatch} from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
 import moment from 'moment';
+import toast, { Toaster } from 'react-hot-toast';
 import { htmlToText } from 'html-to-text';
 import { BiLowVision } from "react-icons/bi";
 import Sidebar from './Sidebar';
-import { Link } from 'react-router-dom';
+import Loader from '../Loader';
 import CommonHeader from './CommonHeader';
+import {FcApproval} from 'react-icons/fc';
+import {VscUnverified} from 'react-icons/vsc';
 
 const PostList = () => {
+    const {push} = useHistory();
+    const { loading, redirect } = useSelector( state => state.PostReducer);
     const {posts} = useSelector(state => state.FetchAll);
+    const { editErrors } = useSelector(state => state.UpdatePost);
     const dispatch = useDispatch();
 
     const updatePostApproved = async (id) => {
         const confirm = window.confirm("Are you want to approved this Post?");
         if(confirm){
-                try {
-                    dispatch( updateActionStatus({status: "true",id: id,}));
-                } catch (error) {
-                    console.log(error);
-                }
+            dispatch( updateActionStatus({status: "true",id: id,}));
+            dispatch(fetchAll());
         }
     }
     const updatePostPanding = async (id) => {
         const confirm = window.confirm("Are you want to pending this Post?");
         if(confirm){
-                try {
-                    dispatch( updateActionStatus({status: "false",id: id,}));
-                } catch (error) {
-                    console.log(error);
-                }
+            dispatch( updateActionStatus({status: "false",id: id,}));
+            dispatch(fetchAll());
         }
     }
   
     useEffect(()=>{
         dispatch(fetchAll());
     }, [dispatch]);
+    useEffect(()=>{
+        if(editErrors.length !== 0){
+            editErrors.map((error) => toast.error(error.msg));
+            dispatch({type: RESET_UPDATE_ERRORS});
+        }
+    },[dispatch, editErrors]);
+    useEffect(()=>{
+        if(redirect){
+            push('/posts');
+        }
+    }, [redirect, push]);
     return (
         <>
-            <Sidebar />
+         <Toaster
+             position='top-right'
+              reverseOrder={false}
+              toastOptions={{
+                  style: {
+                      fontSize: '14px'
+                  },
+              }}
+            />
+            {!loading ?<> <Sidebar />
                <div className="main-content">
                 <Navbar />
                 <main>
@@ -63,7 +85,7 @@ const PostList = () => {
                                                             <td width="10%">Action</td>
                                                         </tr>
                                                     </thead>
-                                                    {posts?.map(post => (<tbody>
+                                                    {posts?.map(post => (<tbody key={post._id}>
                                                         <tr>
                                                             <td>{post?.title}</td>
                                                             <td>{htmlToText(post?.body?.slice(0,50))}</td>
@@ -71,8 +93,8 @@ const PostList = () => {
                                                             <td>
                                                                 <span className="status orange">
                                                                     {post.status === 'false' ? 
-                                                                    <button className="btn btn-default" onClick={() => updatePostApproved(post._id)}>Panding</button>:
-                                                                    <button className="btn btn-default btn-green" onClick={() => updatePostPanding(post._id)}>Approved</button>}
+                                                                    <button className="btn" onClick={() => updatePostApproved(post._id)}><VscUnverified color="red"/></button>:
+                                                                    <button className="btn" onClick={() => updatePostPanding(post._id)}><FcApproval /> </button>}
                                                                 </span>
                                                             </td>
                                                             <td style={{textAlign:"center"}}>
@@ -90,7 +112,7 @@ const PostList = () => {
                     </div>
                 </div>
                 </main>
-            </div>
+            </div></> : <Loader />}
         </>
     )
 }

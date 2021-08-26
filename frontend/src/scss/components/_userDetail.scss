@@ -1,8 +1,47 @@
 .user{
-    text-align: center;
-    &_role{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    &_avtar{
+        width: 4rem;
+        height: 4rem;
+        background: $green;
+        border-radius: 50%;
         display: flex;
-        flex-direction: row;
-        justify-content: space-evenly;
+        align-items: center;
+        justify-content: center;
+        align-content: center;
+        color: $white;
+        font-size: 18px;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+    &_header{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 17px;
+        font-weight: 500;
+        text-transform: uppercase;
+        &_email{
+            font-size: 14px;
+            font-weight: 400;
+            text-transform: lowercase;
+        }
+    }
+    &_role{
+        font-size: 12px;
+        font-weight: 500;
+        text-transform: uppercase;
+    }
+    &_button{
+        &_div{
+            margin: 5px;
+        }
     }
 }

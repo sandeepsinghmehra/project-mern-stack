@@ -1,19 +1,21 @@
 import React, {useEffect} from 'react';
 import Navbar from './Navbar';
+import Sidebar from './Sidebar';
+import moment from 'moment';
+import CommonHeader from './CommonHeader';
 import { fetchAll } from '../../store/asyncMethods/PostMethods';
+import { REDIRECT_FALSE } from '../../store/types/PostTypes';
 import { useSelector, useDispatch} from 'react-redux';
 import { Link } from 'react-router-dom';
-import moment from 'moment';
 import { BiLowVision } from "react-icons/bi";
-import Sidebar from './Sidebar';
-import CommonHeader from './CommonHeader';
+
 
 const UserList = () => {
     const {users} = useSelector(state => state.FetchAll);
-    console.log('reduceUserList', users);
     const dispatch = useDispatch();
     useEffect(()=>{
         dispatch(fetchAll());
+        dispatch({type: REDIRECT_FALSE});
     }, [dispatch]);
     return (
         <>

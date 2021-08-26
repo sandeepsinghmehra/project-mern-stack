@@ -6,34 +6,51 @@ const auth = require("../utils/auth");
 const router = app.Router();
 
 
-router.post('/updatepost', async (req, res) => {
+router.put('/updatepost', async (req, res) => {
     const {id, status} = req.body;
         try {
-            const response = await Post.findByIdAndUpdate(id, {status});
-            return res.status(200).json({msg: 'Your post has been updated.'})
+            const response = await Post.findByIdAndUpdate(id, {status}, {new:true}, (err, result)=>{
+                if(err){
+                    return res.status(422).json({error: err});
+                }
+                return res.status(200).json({response: result});
+            });
+            
         } catch (error) {
             return res.status(500).json({errors: error, msg: error.message});
         }
     
 });
-router.post("/makeAdmin", async (req, res) =>{
-    const {id, role} = req.body;
+
+router.put("/makeRole", async (req, res)=>{
+    const { id, role} = req.body;
     try {
-        await User.findByIdAndUpdate(id, {role});
-        return res.status(200).json({msg: "Your user changed into an Admin"});
+        const response = await User.findByIdAndUpdate(id, {role}, {new: true}, async(err, result)=>{
+            if(err){
+                return res.status(422).json({error: err});
+            }
+            return res.status(200).json({response: result});
+        });
     } catch (error) {
         return res.status(500).json({errors: error});
     }
 });
-router.post("/makeUser", async (req, res)=>{
-    const { id, role } = req.body;
+router.put("/blockUnBlockUser", auth, async (req, res)=>{
+    const {id, blockStatus} = req.body;
     try {
-        await User.findByIdAndUpdate(id, {role});
-        return res.status(200).json({msg: "Your Admin changed into a User"});
+        const response = await User.findByIdAndUpdate(id, {blockStatus: blockStatus}, {new: true}, async(err, result)=>{
+            if(err){
+                return res.status(422).json({error:err});
+            }
+            return res.status(200).json({response: result});
+        });
+        
     } catch (error) {
         return res.status(500).json({errors: error});
     }
+   
 });
+
 router.get("/users", async (req, res)=>{
     try {
         const users = await User.find();

@@ -15,10 +15,9 @@ const Create = (props) => {
     const dispatch = useDispatch();
     const {
             user:{
-                _id, name
+                _id, name, blockStatus
             }
         } = useSelector((state) => state.AuthReducer);
-    console.log('create id : ', _id)
     const fileHandle = (e) => {
         if(e.target.files.length !== 0){
             setCurrentImage(e.target.files[0].name);
@@ -197,13 +196,13 @@ const Create = (props) => {
                                             />
                                     </div>
                                     
-                                    <div className="group pb-8">
+                                   {blockStatus === 'false'? <div className="group pb-8">
                                             <input 
                                                 type="submit"
                                                 value="create post"
                                                 className="btn btn-default btn-block"
                                             />
-                                    </div>
+                                    </div> : <div className="btn btn-blue">You are blocked by Admin.</div>}
                                 </div>
                             </div>
                         </div>

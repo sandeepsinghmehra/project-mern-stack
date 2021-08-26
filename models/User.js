@@ -17,6 +17,11 @@ const userSchema = new Schema({
         enum: ['user','admin'],
         default: 'user',
     },
+    blockStatus: {
+        type: String,
+        enum: ['false', 'true'],
+        default: 'false',
+    }
 }, {
     timestamps: true
 });

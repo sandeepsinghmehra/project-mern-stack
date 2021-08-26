@@ -21,7 +21,7 @@ const Details = () => {
     const dispatch = useDispatch();
     const addComment = (e) => {
         e.preventDefault();
-        dispatch(postComment({id: details._id, comment, userName: user.name}));
+        dispatch(postComment({id: details._id, comment, userName: user.name, userRole: user.role}));
         setComment('');
         dispatch(postDetails(id));
     }
@@ -103,7 +103,7 @@ const Details = () => {
                    {user ?
                    <>
                     <div className="post_comment">
-                       <form onSubmit={addComment}>
+                        {user?.blockStatus === 'false' ? <div>  <form onSubmit={addComment}>
                            <div className="group">
                                <input 
                                     type="text" 
@@ -116,16 +116,18 @@ const Details = () => {
                            <div className="group">
                                <input type="submit" value="Post comment" className="btn btn-default" />
                            </div>
-                       </form>
+                       </form></div>:<div className="btn btn-blue">You are blocked by Admin.</div>}
+                     
                        </div>
                        
-                       </> : 
+                       </>
+                     : 
                        <div className="mt-20">
                            <Link to="/login" className="btn btn-default" style={{background: "blue"}}>
                                Login Here to comment
                            </Link>
                        </div>
-                       }
+                   }
                        <Comments comments={comments} />
                    </div>) : (<Loader />)}
                     </div>

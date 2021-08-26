@@ -21,7 +21,6 @@ import {
 
 export const createAction = (postData) => {
     return async (dispatch, getState) =>{
-        console.log('PostData ', postData);
         const {AuthReducer: {token}} = getState();
         const config ={
             headers: {
@@ -81,7 +80,6 @@ export const fetchPostUserId = (id) => {
             const {data: {posts}} = await axios.get(`/postID/${id}`);
             dispatch({type: CLOSE_LOADER});
             dispatch({type: POSTID, payload: posts});
-            console.log(posts);
         } catch (error) {
             dispatch({type: CLOSE_LOADER});
             console.log(error);
@@ -99,9 +97,9 @@ export const fetchPost = (id) => {
                     Authorization: `Bearer ${token}`,
                 }
             };
-            const {data: {post}} = await axios.get(`/post/${id}`, config);
+            const response = await axios.get(`/post/${id}`, config);
             dispatch({type: CLOSE_LOADER});
-            dispatch({type: SET_POST, payload: post});
+            dispatch({type: SET_POST, payload: response});
             dispatch({type: POST_REQUEST});
         } catch (error) {
             const {response: {data: {errors},},} = error;
@@ -134,49 +132,69 @@ export const updateAction = (editData) => {
 }
 export const updateActionStatus = (editData) => {
     return async (dispatch)=>{
-        dispatch({type: SET_LOADER});
         try {
-            await axios.post("/updatepost", editData);
-            dispatch({type: CLOSE_LOADER});
+            const response = await axios.put("/updatepost", editData);
+            dispatch({type: SET_POST, payload: response});
         } catch (error) {
-            dispatch({type: CLOSE_LOADER});
             console.log(error.response);
         }
     }
 }
-export const makeAdminRole = (editDataRole) => {
+
+export const makeRole = (editDataRole) => {
     return async (dispatch) => {
-        dispatch({type: SET_LOADER});
-        console.log('makeAdmin', editDataRole);
         try {
-            await axios.post("/makeAdmin", editDataRole);
-            dispatch({type: CLOSE_LOADER});
+            const response = await axios.put("/makeRole", editDataRole);
+            dispatch({type: USER_DETAIL, payload: response});
         } catch (error) {
             dispatch({type: CLOSE_LOADER});
             console.log(error.response);
         }
     }
 }
-export const makeUserRole = (editDataRole) => {
-    return async (dispatch) => {
+export const deleteUserById = (id, role) => {
+    return async (dispatch, getState) => {
+        const {AuthReducer:{token}} = getState();
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        };
         dispatch({type: SET_LOADER});
-        console.log('makeUser', editDataRole);
         try {
-            await axios.post("/makeUser", editDataRole);
+            await axios.get(`/deleteUser/${id}/${role}`, config);
             dispatch({type: CLOSE_LOADER});
+            dispatch({type: REDIRECT_TRUE});
         } catch (error) {
             dispatch({type: CLOSE_LOADER});
-            console.log(error.response);
+            console.log(error);
         }
     }
 }
+export const blockUnblockUserById = (data)=>{
+    return async (dispatch, getState) => {
+        const {AuthReducer: {token}} = getState();
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        };
+        try {
+            const response = await axios.put(`/blockUnBlockUser`, data ,config);
+            dispatch({type: USER_DETAIL, payload: response});
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
 export const userDetail = (id) => {
     return async (dispatch) => {
         dispatch({type: SET_LOADER});
         try {
-            const {data:{user}} = await axios.get(`/userdetail/${id}`);
+            const response = await axios.get(`/userdetail/${id}`);
             dispatch({type: CLOSE_LOADER});
-            dispatch({type: USER_DETAIL, payload: user});
+            dispatch({type: USER_DETAIL, payload: response});
         } catch (error) {
             dispatch({type: CLOSE_LOADER});
             console.log(error);
@@ -281,7 +299,6 @@ export const addLike = (id) => {
         }
         try {
             const response = await axios.put('/like', {postid: id}, config);
-            console.log('addlike res: ', response);
             dispatch({type: LIKES, payload: response});
         } catch (error) {
             console.log(error);
@@ -298,7 +315,6 @@ export const DisLike = (id) => {
         }
         try {
             const response = await axios.put('/unlike', {postid: id}, config);
-            console.log('dislike res: ', response);
             dispatch({type: LIKES, payload: response});
         } catch (error) {
             console.log(error);

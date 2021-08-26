@@ -118,7 +118,14 @@ export const PostReducer = (state = initState, action) => {
         case USER_DETAIL:
             return {
                 ...state,
-                userObj: payload,
+                userObj: {
+                    ...state.userObj,
+                    _id: payload.data.response._id,
+                    name: payload.data.response.name,
+                    email: payload.data.response.email,
+                    role: payload.data.response.role,
+                    blockStatus: payload.data.response.blockStatus,
+                },
             }
         case POSTID:
             return {
@@ -169,7 +176,10 @@ export const FetchPost = (state = initState, action) => {
         case SET_POST:
             return {
                 ...state, 
-                post: payload
+                post: {
+                    ...state.post,
+                    status: payload.data.response.status,
+                }
             }
         case POST_REQUEST:
             return {

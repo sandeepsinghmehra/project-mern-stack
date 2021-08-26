@@ -16,6 +16,6 @@ module.exports = (req, res, next)=>{
             });
         });
     } catch(error){
-        return res.status(401).json({errors: [{msg: error.message}]})
+        return res.status(401).json({errors: [{msg: error.message}]});
     }
 };

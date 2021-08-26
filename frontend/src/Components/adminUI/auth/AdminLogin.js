@@ -53,7 +53,7 @@ const AdminLogin = () => {
                         <div className="accountAdmin_section">
                             <form onSubmit={userLogin}>
                             <div className="group">
-                                <h3 className="form-heading" style={{color: "white"}}>Admin Login</h3>
+                                <h3 className="form-heading">Admin Login</h3>
                             </div>
 
                             <div  className="group">

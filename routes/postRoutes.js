@@ -18,6 +18,8 @@ const {
     postHeart,
     postUnheart,
     fetchPostsById,
+    deleteCommentByUser,
+    deleteCommentByAdmin,
  } = require("../controllers/postController");
 
 const auth = require("../utils/auth");
@@ -34,6 +36,8 @@ router.get('/explore/:id', postDetails);
 router.get('/explorebyid/:id', postDetailsbyid);
 router.get('/userdetail/:id', userDetailRoute);
 router.post('/comment', auth, postComment);
+router.get('/deleteCommentByUser/:id/:role', auth, deleteCommentByUser);
+router.get('/deleteCommentByUser/:id/', auth, deleteCommentByAdmin);
 router.put('/like', auth, postLike);
 router.put('/unlike', auth, postUnlike);
 router.put('/heart', auth, postHeart);

@@ -9,6 +9,11 @@ import {RESET_UPDATE_IMAGE_ERRORS} from '../../../store/types/PostTypes';
 
 const EditImage = (props) => {
     const {id} = useParams();
+    const {
+        user:{
+             blockStatus
+        }
+    } = useSelector((state) => state.AuthReducer);
     const {push} = useHistory();
     const dispatch = useDispatch();
     const {updateImageErrors} = useSelector(state => state.UpdateImage);
@@ -94,13 +99,13 @@ const EditImage = (props) => {
                                         {state.imagePreview ? <img src={state.imagePreview} alt="avtar" /> : ''}
                                     </div>
                             </div>
-                            <div className="group">
+                            {blockStatus === 'false' ?<div className="group">
                                 <input 
                                     type="submit"
                                     value="Update Image"
                                     className="btn btn-default btn-block"
                                 />
-                            </div>
+                            </div>: <div className="btn btn-blue">You are blocked by Admin</div>}
                         </form>
                         </div>
                     </div>

@@ -7,4 +7,12 @@
     font-size: 1.4rem;
     margin-top: 0.6rem;
     margin-left: 5rem;
+    display: flex;
+    flex-direction: row;
+    align-content: space-around;
+    justify-content: space-between;
+    align-items: center;
+    &_delete{
+        margin-right: 15rem;
+    }
 }

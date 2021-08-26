@@ -13,6 +13,12 @@ import Footer from '../../Footer';
 const Edit = () => {
     const {push} = useHistory();
     const {id} = useParams();
+    const {
+        user:{
+             blockStatus
+        }
+    } = useSelector((state) => state.AuthReducer);
+
     const [value, setValue] = useState('');
     const [state, setState] = useState({
         title: '',
@@ -130,13 +136,14 @@ const Edit = () => {
                                 </textarea>
                                 <p className="length">{state.description ? state.description.length : ''}</p>
                             </div>
-                            <div className="group">
+                            {blockStatus === 'false'?  <div className="group">
                                 <input
                                     type="submit"
                                     value="Edit"
                                     className="btn btn-default btn-block"
                                 />
-                            </div>
+                            </div>: <div className="btn btn-blue">You are blocked by Admin.</div>}
+                           
                         </form>
                     </div>
                 </div>

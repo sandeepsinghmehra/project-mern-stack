@@ -1,115 +1,121 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useHistory} from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Navbar from './Navbar';
+import Loader from '../Loader';
 import moment from 'moment';
-import axios from 'axios';
 import {BiLowVision} from 'react-icons/bi';
 import {FcApproval} from 'react-icons/fc';
 import {VscUnverified} from 'react-icons/vsc';
 import { htmlToText } from 'html-to-text';
-import { updateActionStatus, fetchPostUserId, userDetail, makeAdminRole, makeUserRole } from '../../store/asyncMethods/PostMethods';
+import { updateActionStatus,
+      fetchPostUserId, 
+      userDetail, 
+      makeRole,
+      deleteUserById,
+      blockUnblockUserById, 
+    } from '../../store/asyncMethods/PostMethods';
 
 const UserDetail = () => {
     const {id} = useParams();
-    const {user, token} = useSelector(state => state.AuthReducer);
-    const {userObj, posts} = useSelector(state => state.PostReducer);
+    const {push} = useHistory();
+    const {user,} = useSelector(state => state.AuthReducer);
+    const {userObj, loading, posts, redirect} = useSelector(state => state.PostReducer);
     const dispatch = useDispatch();
     const updatePostApproved = async (id) => {
         const confirm = window.confirm("Are you want to approved this Post?");
         if(confirm){
-                try {
-                    dispatch( updateActionStatus({status: "true",id: id,}));
-                } catch (error) {
-                    console.log(error);
-                }
+            dispatch( updateActionStatus({status: "true",id: id,}));
         }
     }
 
     const updatePostPanding = async (id) => {
         const confirm = window.confirm("Are you want to panding this Post?");
         if(confirm){
-                try {
-                    dispatch( updateActionStatus({status: "false",id: id,}));
-                } catch (error) {
-                    console.log(error);
-                }
+            dispatch(updateActionStatus({status: "false", id: id,}));
         }
     }
-    const makeAdmin = async (id) => {
-        const confirm = window.confirm("Are you want to make this User to Admin?");
+    const makeAdmin = async (id, name) => {
+        const confirm = window.confirm(`Are you want to make this User ${name} to Admin ${name}?`);
         if(confirm){
-            try {
-                dispatch(makeAdminRole({role:"admin", id: id}));
-            } catch (error){
-                console.log(error);
-            }
+            dispatch(makeRole({ id: id, role: "admin"}));
         }
     }
-    const makeUser = async (id) => {
-        const confirm = window.confirm("Are you want to make this Admin to User?");
+    const makeUser = async (id, name) => {
+        const confirm = window.confirm(`Are you want to make this Admin ${name} to User ${name}?`);
         if(confirm){
-            try {
-                dispatch(makeUserRole({role: "user", id: id}))
-            } catch (error){
-                console.log(error);
-            }
+            dispatch(makeRole({ id: id, role: "user", }));
         }
     }
-    const deleteUser = async (id, role) => {
-        const confirm = window.confirm("Are you want to Delete this User Permanently?");
+    const deleteUser = async (id, role, name) => {
+        const confirm = window.confirm(`Are you want to Delete ${name} Permanently?`);
         if(confirm){
-            try {
-                const config = {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    }
-                };
-                await axios.get(`/deleteUser/${id}/${role}`, config);
-            } catch (error) {
-                console.log(error);
-            }
+            dispatch(deleteUserById(id, role));
         }
+    }
+    const blockUser = async (id, name) => {
+        const confirm = window.confirm(`Are you want to Block ${name} ?`);
+        if(confirm){
+            dispatch(blockUnblockUserById( {id: id, blockStatus: 'true'}));
+        };
+    }
+    const unBlockUser = async (id, name) => {
+        const confirm = window.confirm(`Are you want to UnBlock ${name} ?`);
+        if(confirm){
+            dispatch(blockUnblockUserById( {id: id, blockStatus: 'false'}));
+        };
     }
     useEffect(() => {
         dispatch(userDetail(id));
         dispatch(fetchPostUserId(id));
     },[dispatch, id]);
+    useEffect(()=>{
+        if(redirect){
+            push('/users');
+        }
+    }, [redirect, push]);
+
     return (
         <>
-        <Sidebar />   
-            <div className="main-content">
-                <Navbar />
+        {!loading ? <><Sidebar />   
+                <div className="main-content">
+                    <Navbar />
                 
                     <div className="row mt-80">
                     <div className="col-4 p-15">
-                       {user?.role === 'admin' ? <div className="user p-15 br-10">
+                       {user?.role === 'admin' ? <div className="user recent-grid ">
                                     
                                         <div className="user_avtar">
                                             {userObj?.name ? userObj?.name[0] : ''}
                                         </div>
                                         <div className="user_header">
                                             <span>{userObj?.name}</span>
-                                            <span>{moment(userObj?.createdAt).fromNow()}</span>
+                                            <span className="user_header_email">{userObj?.email}</span>
                                         </div>
-                                    
-                                                {userObj?.email}
                                             
+                                        
                                             <div className="user_role">
-                                               <span>User Role : <span style={{textTransform:'uppercase'}}>{userObj?.role} </span> </span>
-                                               <span> {userObj?.role === 'user' ? 
-                                                        <button className="btn btn-default" onClick={()=>makeAdmin(userObj?._id)}>Make Admin</button>
-                                                        : <button className="btn btn-default" onClick={()=>makeUser(userObj?._id)}>Make User</button>
-                                                        }
-                                                </span>
+                                               <span>User Role : {userObj?.role} </span>
+                                           
                                             </div>
-                                            <button onClick={() => deleteUser(userObj?._id, userObj?.role)} className="btn btn-orange"  > Delete User </button>
+                                            <span> {userObj?.role === 'user' ? 
+                                                        <button className="btn btn-default" onClick={()=>makeAdmin(userObj?._id, userObj?.name)}>Make Admin</button>
+                                                        : <button className="btn btn-default" onClick={()=>makeUser(userObj?._id, userObj?.name)}>Make User</button>
+                                                        }
+                                            </span>
+                                            <div className="user_button">
+                                                <button onClick={() => deleteUser(userObj?._id, userObj?.role, userObj?.name)} className="btn btn-orange user_button_div"> Delete User </button>
+                                                {userObj?.blockStatus === 'false'? 
+                                                <button onClick={() => blockUser(userObj?._id, userObj?.name)} className="btn btn-red user_button_div">Block User</button>:
+                                                <button onClick={() => unBlockUser(userObj?._id, userObj?.name)} className="btn btn-blue user_button_div">UnBlock User</button>}
+                                            </div>
+                                           
             
                                 </div>: 'You are not an Admin'}
                         </div>
-                        <div className="col-8 p-15">
-                        <div className="recent-grid" style={{gridTemplateColumns: "100%"}}>
+                        <div className="col-8">
+                        <div className="recent-grid" style={{gridTemplateColumns: "100%", marginRight: "2rem", marginLeft: "2rem"}}>
                     <div className="projects">
                         <div className="card">
                             <div className="card-header">
@@ -128,7 +134,7 @@ const UserDetail = () => {
                                                             <td width="10%">Action</td>
                                                         </tr>
                                                     </thead>
-                                                    {posts?.map(post => (<tbody>
+                                                    {posts?.map(post => (<tbody key={post._id}>
                                                         <tr>
                                                             <td>{post?.title}</td>
                                                             <td>{htmlToText(post?.body?.slice(0,50))}</td>
@@ -151,13 +157,12 @@ const UserDetail = () => {
                                                 </table>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                        </div>
-                    </div>
-                
-            </div>   
+                </div>  </>: <Loader />} 
     </>
     )
 }

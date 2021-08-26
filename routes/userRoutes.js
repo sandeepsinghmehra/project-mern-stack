@@ -8,8 +8,6 @@ const {register,
 } = require("../controllers/userController");
 
 router.post("/register", registerValidations, register );
-
 router.post("/login", loginValidations, login);
-
 router.post("/adminlogin", loginValidations, adminlogin);
 module.exports = router;
