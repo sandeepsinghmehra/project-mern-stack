@@ -10,7 +10,6 @@ const app = express();
 
 require('dotenv').config();
 
-
 //calling database to connect
 connect();
  

@@ -8,6 +8,7 @@ import {
         SET_MESSAGE,
         SET_POSTS,
         SET_POST,
+        SET_POST_AS_UPDATE,
         POST_REQUEST,
         SET_UPDATE_ERRORS,
         UPDATE_IMAGE_ERROR,
@@ -97,12 +98,12 @@ export const fetchPost = (id) => {
                     Authorization: `Bearer ${token}`,
                 }
             };
-            const response = await axios.get(`/post/${id}`, config);
+            const {data: {post}} = await axios.get(`/post/${id}`, config);
             dispatch({type: CLOSE_LOADER});
-            dispatch({type: SET_POST, payload: response});
+            dispatch({type: SET_POST_AS_UPDATE, payload: post});
             dispatch({type: POST_REQUEST});
         } catch (error) {
-            const {response: {data: {errors},},} = error;
+            const {response: {data:{errors}}} = error;
             dispatch({type: CLOSE_LOADER});
             dispatch({type: SET_UPDATE_ERRORS, payload: errors});
             console.log(error.message);
@@ -121,6 +122,7 @@ export const updateAction = (editData) => {
         dispatch({type: SET_LOADER});
         try {
             const {data} = await axios.post("/update", editData, config);
+            console.log('data',data);
             dispatch({type: CLOSE_LOADER});
             dispatch({type: REDIRECT_TRUE});
             dispatch({type: SET_MESSAGE, payload: data.msg});

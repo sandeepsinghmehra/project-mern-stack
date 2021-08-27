@@ -3,7 +3,7 @@ const router = express.Router();
 const {
     createPost, 
     fetchPosts, 
-    fetchPost, 
+    fetchPostbyUpdate, 
     updatePost, 
     updateValidations, 
     updateImage,
@@ -29,7 +29,7 @@ router.post('/update', [auth, updateValidations], updatePost );
 router.post('/updateImage', auth, updateImage );
 router.get("/posts/:id/:page", auth, fetchPosts );
 router.get("/postID/:id", fetchPostsById);
-router.get('/post/:id', auth, fetchPost );
+router.get('/post/:id', auth, fetchPostbyUpdate );
 router.get('/delete/:id', auth, deletePost );
 router.get('/home/:page', home);
 router.get('/explore/:id', postDetails);

@@ -111,6 +111,7 @@ const Edit = () => {
                             <div className="group">
                                 <label htmlFor="body">Post Body</label>
                                 <ReactQuill 
+                                        name="editor"
                                         theme="snow"
                                         id="body"
                                         placeholder="Post Body..."

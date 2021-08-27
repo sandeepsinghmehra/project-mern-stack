@@ -9,6 +9,7 @@ import {
         REMOVE_MESSAGE,
         SET_POSTS,
         SET_POST,
+        SET_POST_AS_UPDATE,
         POST_REQUEST,
         POST_RESET,
         SET_UPDATE_ERRORS,
@@ -180,6 +181,11 @@ export const FetchPost = (state = initState, action) => {
                     ...state.post,
                     status: payload.data.response.status,
                 }
+            }
+        case SET_POST_AS_UPDATE: 
+            return {
+                ...state,
+                post: payload,
             }
         case POST_REQUEST:
             return {
