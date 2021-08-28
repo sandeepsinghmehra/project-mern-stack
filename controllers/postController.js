@@ -1,4 +1,5 @@
 const formidable = require('formidable');
+require('dotenv').config();
 const { v4: uuidv4 } = require('uuid');
 const {body, validationResult} = require('express-validator');
 const { htmlToText } = require('html-to-text');
@@ -7,7 +8,41 @@ const { resolveTxt } = require('dns');
 const Post = require("../models/Post");
 const User = require("../models/User");
 const Comment = require("../models/Comment");
+const cloudinary = require('cloudinary').v2;
+const streamifier = require('streamifier');
+cloudinary.config({ 
+    cloud_name: process.env.CLOUD_NAME, 
+    api_key: process.env.API_KEY, 
+    api_secret: process.env.SECRET_KEY_API,
+    secure: true
+  });
 
+module.exports.uploadImage = (req, res) =>{ 
+    fileUpload.single('image'), function (req, res, next) {
+    let streamUpload = (req) => {
+        return new Promise((resolve, reject) => {
+            let stream = cloudinary.uploader.upload_stream(
+              (error, result) => {
+                if (result) {
+                  resolve(result);
+                } else {
+                  reject(error);
+                }
+              }
+            );
+    
+           streamifier.createReadStream(req.file.buffer).pipe(stream);
+        });
+    };
+    
+    async function upload(req) {
+        let result = await streamUpload(req);
+        console.log(result);
+    }
+    
+    upload(req);
+    };
+};
 module.exports.createPost = (req, res)=>{
     const form = formidable({ multiples: true });
     form.parse(req, async (error, fields, files)=>{
@@ -44,8 +79,14 @@ module.exports.createPost = (req, res)=>{
         if(errors.length !== 0){
             return res.status(400).json({errors, files});
         } else{
-            const newPath = 
-            __dirname + `/../frontend/build/images/${files.image.name}`
+            cloudinary.uploader.upload(files.image, 
+            {resource_type: "image", public_id: `myfolder/mysubfolder/${files.image}`,
+            overwrite: true,},(error, result) => {
+                console.log('result',result);
+                console.log(error);
+            });
+
+            const newPath = __dirname + `/../frontend/build/images/${files.image.name}`
             fs.copyFile(files.image.path, newPath, async (error)=>{
                 if (!error){
                     try {
