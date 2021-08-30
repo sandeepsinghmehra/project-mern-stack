@@ -113,7 +113,7 @@ const Dashboard = () => {
                             <div className="dashboard">
                                 <div className="dashboard_card">
                                 <div className="dashboard_card_image">
-                                    <img src={`/images/${post.image}`} alt={post.image} />
+                                    <img src={`${post.image}`} alt={post.image} />
                                     <span className="dashboard_card_date">{moment(post.createdAt).format("MMM Do YY")}</span>
                                 </div>
                                 

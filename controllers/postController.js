@@ -9,7 +9,7 @@ const Post = require("../models/Post");
 const User = require("../models/User");
 const Comment = require("../models/Comment");
 const cloudinary = require('cloudinary').v2;
-const streamifier = require('streamifier');
+
 cloudinary.config({ 
     cloud_name: process.env.CLOUD_NAME, 
     api_key: process.env.API_KEY, 
@@ -17,32 +17,6 @@ cloudinary.config({
     secure: true
   });
 
-module.exports.uploadImage = (req, res) =>{ 
-    fileUpload.single('image'), function (req, res, next) {
-    let streamUpload = (req) => {
-        return new Promise((resolve, reject) => {
-            let stream = cloudinary.uploader.upload_stream(
-              (error, result) => {
-                if (result) {
-                  resolve(result);
-                } else {
-                  reject(error);
-                }
-              }
-            );
-    
-           streamifier.createReadStream(req.file.buffer).pipe(stream);
-        });
-    };
-    
-    async function upload(req) {
-        let result = await streamUpload(req);
-        console.log(result);
-    }
-    
-    upload(req);
-    };
-};
 module.exports.createPost = (req, res)=>{
     const form = formidable({ multiples: true });
     form.parse(req, async (error, fields, files)=>{
@@ -79,38 +53,29 @@ module.exports.createPost = (req, res)=>{
         if(errors.length !== 0){
             return res.status(400).json({errors, files});
         } else{
-            cloudinary.uploader.upload(files.image, 
-            {resource_type: "image", public_id: `myfolder/mysubfolder/${files.image}`,
-            overwrite: true,},(error, result) => {
-                console.log('result',result);
-                console.log(error);
-            });
-
-            const newPath = __dirname + `/../frontend/build/images/${files.image.name}`
-            fs.copyFile(files.image.path, newPath, async (error)=>{
-                if (!error){
-                    try {
-                        const response = await Post.create({
-                            title,
-                            body,
-                            image: files.image.name,
-                            slug,
-                            description,
-                            userName: name,
-                            status,
-                            userId: id,
-                        });
-                        return res.status(200).json({
-                            msg: 'Your Post have been created successfully',
-                            response,
-                        });
-                    } catch (error) {
-                        return res.status(500).json({errors: error, msg: error.message})
-                    }
-                } else {
-                    console.log(error);
+               const result = await cloudinary.uploader.upload(files.image.path, async (err, result)=>{
+                   console.log('result', result);
+                try {
+                    const response = await Post.create({
+                        title,
+                        public_id: await (result).public_id,
+                        body,
+                        image: await (result).secure_url,
+                        slug,
+                        description,
+                        userName: name,
+                        status,
+                        userId: id,
+                    });
+                    return res.status(200).json({
+                        msg: 'Your Post have been created successfully',
+                        response,
+                    });
+                } catch (error) {
+                    return res.status(500).json({errors: error, msg: error.message})
                 }
-            });
+               });
+                    
         }
     });
 };
@@ -214,9 +179,14 @@ module.exports.updateImage = async (req, res) => {
 };
 
 module.exports.deletePost = async (req, res) => {
-    const id = req.params.id;
+    const id = req.params.id; 
     try {
-        const response = await Post.findByIdAndDelete(id);
+        const post = await Post.findById(id);
+        await cloudinary.uploader.destroy(post.public_id, { invalidate: true, resource_type: "image" }, (err, result)=>{
+            console.log('result: ', result);
+            console.log('error', err);
+        });
+        const response = await post.remove();
         return res.status(200).json({msg: 'Your post has been deleted'});
     } catch (error) {
         return res.status(500).json({errors: error, msg: error.message});

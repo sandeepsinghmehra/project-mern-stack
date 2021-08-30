@@ -5,6 +5,10 @@ const postSchema = new Schema({
         type: String,
         required: true,
     },
+    public_id: {
+        type: String,
+        required: true,
+    },
     body: {
         type: String, 
         required: true,
