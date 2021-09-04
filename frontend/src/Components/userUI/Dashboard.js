@@ -90,7 +90,7 @@ const Dashboard = () => {
                     {!loading ? posts.length > 0 ?
                     <div className="containerCard">
                         <div className="col-4" style={{display:'inline-block'}}>
-                            <img src={`/images/${posts[0].image}`} alt={posts[0].image} />
+                            <img src={`${posts[0].image}`} alt={posts[0].image} />
                         </div>
                         <div className="col-8" style={{display:'inline-block'}}>
                             <div className="containerCard_title">
