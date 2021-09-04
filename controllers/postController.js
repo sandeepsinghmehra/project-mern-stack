@@ -54,7 +54,6 @@ module.exports.createPost = (req, res)=>{
             return res.status(400).json({errors, files});
         } else{
                const result = await cloudinary.uploader.upload(files.image.path, async (err, result)=>{
-                   console.log('result', result);
                 try {
                     const response = await Post.create({
                         title,
@@ -144,7 +143,7 @@ module.exports.updatePost = async (req, res) => {
 
 module.exports.updateImage = async (req, res) => {
     const form = formidable({multiples: true});
-        form.parse(req, (errors, fields, files) =>{
+        form.parse(req, async (errors, fields, files) =>{
             const {id} = fields;
             const imgerrors = [];
             if(Object.keys(files).length === 0){
@@ -162,18 +161,21 @@ module.exports.updateImage = async (req, res) => {
             if(imgerrors.length !== 0){
                 return res.status(400).json({errors: imgerrors});
             } else {
-                const newPath = 
-                        __dirname + `/../frontend/build/images/${files.image.name}`
-                        fs.copyFile(files.image.path, newPath, async (error)=>{
-                            if(!error){
-                                try {
-                                    const response = await Post.findByIdAndUpdate(id, {image: files.image.name,});
-                                    return res.status(200).json({ msg: 'Your image has been updated'});
-                                } catch (error) {
-                                    return res.status(500).json({errors: error, msg: error.message});
-                                }
-                            }
-                        })
+                try {
+                    const post = await Post.findById(id);
+                    await cloudinary.uploader.destroy(post.public_id, { invalidate: true, resource_type: "image" });
+                    const result = await cloudinary.uploader.upload(files.image.path);
+                    await  Post.findByIdAndUpdate(id, {
+                        public_id: result.public_id,
+                        image: result.secure_url
+                    }, 
+                        {new : true}
+                    );
+                     
+                    return res.status(200).json({ msg: 'Your image has been updated'});
+                } catch (error) {
+                    return res.status(500).json({errors: error, msg: error.message});
+                }
             }
         });
 };
