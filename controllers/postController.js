@@ -53,7 +53,7 @@ module.exports.createPost = (req, res)=>{
         if(errors.length !== 0){
             return res.status(400).json({errors, files});
         } else{
-            console.log('file.image.path', file.image.path);
+            console.log('file.image.path', files.image.path);
             await cloudinary.uploader.upload(files.image.path, async (err, result)=>{
                    console.log('uploader Result', result);
                 try {
