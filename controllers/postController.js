@@ -53,13 +53,15 @@ module.exports.createPost = (req, res)=>{
         if(errors.length !== 0){
             return res.status(400).json({errors, files});
         } else{
-               const result = await cloudinary.uploader.upload(files.image.path, async (err, result)=>{
+            console.log('file.image.path', file.image.path);
+            await cloudinary.uploader.upload(files.image.path, async (err, result)=>{
+                   console.log('uploader Result', result);
                 try {
                     const response = await Post.create({
                         title,
-                        public_id: await (result).public_id,
+                        public_id: result.public_id,
                         body,
-                        image: await (result).secure_url,
+                        image: result.secure_url,
                         slug,
                         description,
                         userName: name,
@@ -164,15 +166,17 @@ module.exports.updateImage = async (req, res) => {
                 try {
                     const post = await Post.findById(id);
                     await cloudinary.uploader.destroy(post.public_id, { invalidate: true, resource_type: "image" });
-                    const result = await cloudinary.uploader.upload(files.image.path);
-                    await  Post.findByIdAndUpdate(id, {
-                        public_id: result.public_id,
-                        image: result.secure_url
-                    }, 
-                        {new : true}
-                    );
-                     
-                    return res.status(200).json({ msg: 'Your image has been updated'});
+                    await cloudinary.uploader.upload(files.image.path, async (err, result)=>{
+                        await  Post.findByIdAndUpdate(id, {
+                            public_id: result.public_id,
+                            image: result.secure_url
+                        }, 
+                            {new : true}
+                        );
+                         
+                        return res.status(200).json({ msg: 'Your image has been updated'});
+                    });
+                   
                 } catch (error) {
                     return res.status(500).json({errors: error, msg: error.message});
                 }
