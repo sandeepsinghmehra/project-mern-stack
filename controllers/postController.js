@@ -55,28 +55,33 @@ module.exports.createPost = (req, res)=>{
             return res.status(400).json({errors, files});
         } else{
             console.log('file.image.path', files.image.path);
-            await cloudinary.uploader.upload(files.image.path, async (err, result)=>{
-                   console.log('uploader Result', result);
-                try {
-                    const response = await Post.create({
-                        title,
-                        public_id: result.public_id,
-                        body,
-                        image: result.secure_url,
-                        slug,
-                        description,
-                        userName: name,
-                        status,
-                        userId: id,
-                    });
-                    return res.status(200).json({
-                        msg: 'Your Post have been created successfully',
-                        response,
-                    });
-                } catch (error) {
-                    return res.status(500).json({errors: error, msg: error.message})
-                }
-               });
+            try {
+                await cloudinary.uploader.upload(files.image.path, async (err, result)=>{
+                    console.log('uploader Result', result);
+                 try {
+                     const response = await Post.create({
+                         title,
+                         public_id: result.public_id,
+                         body,
+                         image: result.secure_url,
+                         slug,
+                         description,
+                         userName: name,
+                         status,
+                         userId: id,
+                     });
+                     return res.status(200).json({
+                         msg: 'Your Post have been created successfully',
+                         response,
+                     });
+                 } catch (error) {
+                     return res.status(500).json({errors: error, msg: error.message})
+                 }
+                });
+            } catch (error) {
+                console.log(error);
+            }
+           
                     
         }
     });
