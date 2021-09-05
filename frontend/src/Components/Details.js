@@ -72,7 +72,7 @@ const Details = () => {
                                 {htmlToText(details.body)}
                             </div>
                             <div className="details_body_image">
-                                    <img src={`/images/${details.image}`} alt={details.image} />
+                                    <img src={`${details.image}`} alt={details.image} />
                             </div>
                         </div>
                     { details.userName ? 

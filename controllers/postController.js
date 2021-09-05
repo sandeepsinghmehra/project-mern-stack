@@ -15,10 +15,12 @@ cloudinary.config({
     api_key: process.env.API_KEY, 
     api_secret: process.env.SECRET_KEY_API,
     secure: true
-  });
+});
 
 module.exports.createPost = (req, res)=>{
     const form = formidable({ multiples: true });
+    console.log("cloud name", process.env.CLOUD_NAME);
+    cloudinary.utils.api_sign_request(params_to_sign, api_secret);
     form.parse(req, async (error, fields, files)=>{
         const {title, body, description, name, slug, id, status} = fields;
         const errors = [];
@@ -54,10 +56,8 @@ module.exports.createPost = (req, res)=>{
         if(errors.length !== 0){
             return res.status(400).json({errors, files});
         } else{
-            console.log('file.image.path', files.image.path);
             try {
                 await cloudinary.uploader.upload(files.image.path, async (err, result)=>{
-                    console.log('uploader Result', result);
                  try {
                      const response = await Post.create({
                          title,
