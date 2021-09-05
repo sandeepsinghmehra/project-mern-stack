@@ -38,6 +38,7 @@ module.exports.createPost = (req, res)=>{
             errors.push({msg: "Image is required"});
         } else {
             const {type} = files.image;
+            console.log('files.image', files.image);
             const split = type.split('/');
             const extension = split[1].toLowerCase();
             if(extension !== 'jpg' && extension !== 'jpeg' && extension !== 'png'){
