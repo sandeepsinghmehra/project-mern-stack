@@ -19,8 +19,6 @@ cloudinary.config({
 
 module.exports.createPost = (req, res)=>{
     const form = formidable({ multiples: true });
-    console.log("cloud name", process.env.CLOUD_NAME);
-    cloudinary.utils.api_sign_request(params_to_sign, api_secret);
     form.parse(req, async (error, fields, files)=>{
         const {title, body, description, name, slug, id, status} = fields;
         const errors = [];
@@ -40,7 +38,6 @@ module.exports.createPost = (req, res)=>{
             errors.push({msg: "Image is required"});
         } else {
             const {type} = files.image;
-            console.log('files.image', files.image);
             const split = type.split('/');
             const extension = split[1].toLowerCase();
             if(extension !== 'jpg' && extension !== 'jpeg' && extension !== 'png'){
