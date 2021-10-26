@@ -1,3 +1,10 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Disallow: /admin
+Disallow: /users
+Disallow: /userdetails/:id
+Disallow: /posts
+Disallow: /postdetails/:id
+Disallow: /updatePassword
+Disallow: /updateName
+Disallow: /updateImage/:id
